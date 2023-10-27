@@ -1,0 +1,28 @@
+.wd-community-private-messages {
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgb(240,240,240);
+}
+
+.wd-community-private-message {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: rgb(250, 250, 250);
+    margin-bottom: 5px;
+    height: 60px !important;
+    justify-content: space-between;
+}
+
+.wd-community-private-message-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px;
+}
+
+
+.wd-community-private-message-body {
+    margin-right: 10px;
+}

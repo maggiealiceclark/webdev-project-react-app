@@ -1,7 +1,12 @@
+import PrivateMessages from "./PrivateMessages";
+import GlobalMessages from "./GlobalMessages";
+import "./index.css";
+
 function MessageBoard() {
 	return (
-		<div>
-			<h1>Message Board</h1>
+		<div className="wd-community-main">
+			<PrivateMessages />
+			<GlobalMessages />
 		</div>
 	);
 }
