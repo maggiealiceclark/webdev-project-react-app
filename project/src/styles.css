@@ -1,0 +1,8 @@
+.wd-main-page {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	font-family: LatoWeb, "Lato Extended", Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight: normal;
+	overflow-x: hidden;
+}
