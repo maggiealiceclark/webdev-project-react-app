@@ -1,0 +1,20 @@
+{
+    "messages": [
+        {
+            "id": 1,
+            "input": "Hello, how are you?"
+        },
+        {
+            "id": 2,
+            "input": "I'm doing well, thanks for asking."
+        },
+        {
+            "id": 3,
+            "input": "What have you been up to lately?"
+        },
+        {
+            "id": 4,
+            "input": "Not much, just working on some coding projects."
+        }
+    ]
+}
