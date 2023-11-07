@@ -1,17 +1,38 @@
 
 import React from "react";
-import { useNavigate, useParams, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { Navbar, Nav, Container } from "react-bootstrap"; // Import Navbar components
 import { Routes, Route, Navigate } from "react-router";
 import { Provider } from "react-redux";
+import Logo from "../images/Picture1.png";
 
 function Profile() {
   return (
-    <div className="container">
+    <div>
+      <Navbar bg="dark" variant="dark" expand="lg" >
+        <Container>
+     
+        <div className="profile-photo">
+        <img class="rounded-circle" src={Logo} alt="Logo " style={{height: "200px"}} />
+          </div>
+          <Navbar.Brand as={Link} to="/" className="mx-auto" >
+            That guy
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="ml-auto" >
+              <Nav.Link as={Link} to="/EditProfile">Edit My Profile</Nav.Link>
+            </Nav>
+            
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+
+      <div className="container">
       
-      <h1>Profile</h1>
       <div className="row">
         {/* FIRST COLUMN*/}
-
+      
         <div className="col-md-4">
           <div>
             <h2>My Most Recent Tracks</h2>
@@ -19,10 +40,7 @@ function Profile() {
         </div>
         {/* SECOND COLUMN */}
         <div className="col-md-4">
-          <h2>My Profile Photo</h2>
-          <div className="profile-photo">
-            <img src="https://example.com/profile.jpg" alt="Profile" />
-          </div>
+        
           <div className="profile-info">
             <h2>My Name</h2>
             <p>Email: myemail.com</p>
@@ -36,7 +54,7 @@ function Profile() {
           </div>
         </div>
         {/* THIRD COLUMN */}
-
+      
         <div className="col-md-4">
           <Link
             // to={`/Kanbas/Courses/${courseId}/Assignments/AssignmentEditor`}
@@ -65,8 +83,11 @@ function Profile() {
           </div>
         </div>
       </div>
+      </div>
     </div>
   );
 }
 
 export default Profile;
+
+
