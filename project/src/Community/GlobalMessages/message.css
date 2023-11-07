@@ -1,0 +1,44 @@
+.wd-message-container {
+    display: flex;
+    height: fit-content;
+    width: 95%;
+    align-items: flex-start;
+}
+
+.wd-message-user {
+    display: flex;
+    width: 120px;
+    height: 25px;
+    margin-top: 4px;
+    margin-left: 10px;
+    margin-right: 10px;
+    align-content: center;
+}
+
+.wd-message-user-username {
+    font-weight: 600;
+
+}
+
+.wd-global-message-profile-picture {
+    width: 20px;
+    height: 20px;
+    border: 1px solid rgb(130, 130, 130);
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 5px;
+}
+
+.wd-message-profile-picture-container {
+    margin: 5px;
+    margin-right: 5px;
+}
+
+.wd-message-text {
+    width: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    word-wrap: break-word;
+}
