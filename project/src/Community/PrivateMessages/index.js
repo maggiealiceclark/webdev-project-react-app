@@ -1,13 +1,13 @@
 import "./index.css";
-import Message from "./message";
+import PrivateMessage from "./privateMessage";
 
 function PrivateMessages() {
 	return (
 		<div className="wd-community-private-messages">
-			<Message user="cole" message="hello" />
-			<Message user="ethan" message="hi" />
-			<Message user="maggie "message="hey" />
-			<Message user="lam" message="hola" />
+			<PrivateMessage uid="1" />
+			<PrivateMessage uid="2" />
+			<PrivateMessage uid="3" />
+			<PrivateMessage uid="4" />
 		</div>
 	);
 }
