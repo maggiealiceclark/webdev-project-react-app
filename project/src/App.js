@@ -8,6 +8,7 @@ import Home from "./home";
 import signIn from "./signIn";
 import MessageBoard from "./Community";
 import Register from "./signIn/register";
+import EditProfile from "./profile/editProfile";
 
 function App() {
 	return (
@@ -21,6 +22,7 @@ function App() {
 					<Route path="signIn" element={<signIn />}></Route>
 					<Route path="register" element={<Register />}></Route>
 					<Route path="Profile" element={<Profile />}></Route>
+					<Route path="EditProfile" element={<EditProfile />}></Route>
 				</Routes>
 			</div>
 		</HashRouter>
