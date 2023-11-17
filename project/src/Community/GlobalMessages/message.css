@@ -35,10 +35,26 @@
 }
 
 .wd-message-text {
-    width: 100%;
+    width: 50rem;
+    max-width: 50rem;
     margin-left: 10px;
     margin-right: 10px;
     margin-top: 5px;
     margin-bottom: 5px;
     word-wrap: break-word;
+}
+
+.wd-message-delete {
+    display: flex;
+    position: absolute;
+    right: 0;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    padding-top: 8px;
+    margin-right: 10px;
+    cursor: pointer;
+    font-weight: 100;
+    color: rgb(180, 180, 180);
 }
