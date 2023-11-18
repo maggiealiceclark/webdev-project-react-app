@@ -8,9 +8,22 @@ import Home from "./home";
 import signIn from "./signIn";
 import MessageBoard from "./Community";
 import Register from "./signIn/register";
-import EditProfile from "./profile/editProfile";
 
 function App() {
+	const [users, setUsers] = useState([]);
+
+	const API_BASE = "http://localhost:4000/api";
+	const USERS_URL = `${API_BASE}/users`;
+
+	const fetchUsers = async () => {
+		const response = await axios.get(USERS_URL);
+		setUsers(response.data);
+	};
+
+	useEffect(() => {
+		fetchUsers();
+	}, []);
+
 	return (
 		<HashRouter>
 			<div className="wd-main-page">
@@ -18,7 +31,7 @@ function App() {
 				<Routes>
 					<Route path="/" element={<Navigate to="Home" />}></Route>
 					<Route path="Home" element={<Home />}></Route>
-					<Route path="Community" element={<MessageBoard />}></Route>
+					<Route path="Community" element={<MessageBoard users={users}/>}></Route>
 					<Route path="signIn" element={<signIn />}></Route>
 					<Route path="register" element={<Register />}></Route>
 					<Route path="Profile" element={<Profile />}></Route>
