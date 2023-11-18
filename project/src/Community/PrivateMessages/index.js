@@ -1,13 +1,14 @@
 import "./index.css";
 import PrivateMessage from "./privateMessage";
 
-function PrivateMessages() {
+function PrivateMessages(props) {
+	const setExpandedId = props.setExpandedId;
 	return (
 		<div className="wd-community-private-messages">
-			<PrivateMessage uid="1" />
-			<PrivateMessage uid="2" />
-			<PrivateMessage uid="3" />
-			<PrivateMessage uid="4" />
+			<PrivateMessage uid="1" setExpandedId={setExpandedId} />
+			<PrivateMessage uid="2" setExpandedId={setExpandedId} />
+			<PrivateMessage uid="3" setExpandedId={setExpandedId} />
+			<PrivateMessage uid="4" setExpandedId={setExpandedId} />
 		</div>
 	);
 }

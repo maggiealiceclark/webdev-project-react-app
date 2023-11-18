@@ -34,7 +34,7 @@ function App() {
 				<Routes>
 					<Route path="/" element={<Navigate to="Home" />}></Route>
 					<Route path="Home" element={<Home />}></Route>
-					<Route path="Community" element={<MessageBoard />}></Route>
+					<Route path="Community" element={<MessageBoard users={users}/>}></Route>
 					<Route path="signIn" element={<signIn />}></Route>
 					<Route path="register" element={<Register />}></Route>
 					<Route path="Profile" element={<Profile />}></Route>
