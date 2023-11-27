@@ -27,6 +27,9 @@ function Header() {
 						<Nav.Link href="#" disabled>
 							Link
 						</Nav.Link>
+						<Nav.Link href={"#/Search"}>
+							Search
+						</Nav.Link>
 					</Nav>
 					<Form className="d-flex">
 						<Form.Control type="search" placeholder="Search" className="me-2" aria-label="Search" />
