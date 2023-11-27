@@ -1,20 +1,22 @@
-import {Card, Col} from "react-bootstrap";
+import {Card, Col, Row} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import Logo from "../images/albumcover.jpg";
+import db from "./SearchData/Database/music.json";
+import SearchResultContainer from "./SearchResultContainer";
+import React from "react";
 
 const ShowAllSearch = ({name, id}) => {
+  const music = db;
+
   return (
-    <Col lg={3} md={6} xs={12} key={id}>
-      <Link key={id} to={`/Search/${id}`}>
-        <Card className="mb-4">
-          <Card.Img variant="top" src={Logo} alt={`Cover for ${name}`} />
-          <Card.Body>
-            <Card.Title>{name}</Card.Title>
-            <Card.Text>{name}</Card.Text>
-          </Card.Body>
-        </Card>
-      </Link>
-    </Col>
+    <div>
+        <Row className="justify-content-center">
+          {music.map((music) => (
+            <SearchResultContainer/>
+          ))}
+        </Row>
+    </div>
+
   );
 
 }
