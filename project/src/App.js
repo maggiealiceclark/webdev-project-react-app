@@ -7,13 +7,13 @@ import Header from "./utils/header";
 import Home from "./home";
 import MessageBoard from "./Community";
 import Signin from "./account/signin";
-import Signup from "./account/signup"
+import Signup from "./account/signup";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Search from "./Search";
-import ShowAllSearch from "./Search/ShowAllSearch";
-import AlbumDetail from "./Search/AlbumDetail";
-import Register from "./signIn/register";
+import ShowAllSearch from "./Search/SearchScreen/ShowAllSearch";
+import AlbumDetail from "./Search/AlbumDetail/AlbumDetail";
+import EditProfile from "./profile/editProfile";
 
 function App() {
 	const [users, setUsers] = useState([]);
@@ -43,8 +43,7 @@ function App() {
 					<Route path="signup" element={<Signup />}></Route>
 					<Route path="Search" element={<Search />}></Route>
 					<Route path={"Search/:searchId/*"} element={<AlbumDetail />}></Route>
-					<Route path={"Search/ShowAll/*"} element={<ShowAllSearch />}></Route>
-					<Route path="register" element={<Register />}></Route>
+					<Route path={"Search/ShowAll/:title/*"} element={<ShowAllSearch />}></Route>
 					<Route path="Profile" element={<Profile />}></Route>
 					<Route path="EditProfile" element={<EditProfile />}></Route>
 				</Routes>

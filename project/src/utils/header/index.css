@@ -1,0 +1,13 @@
+.wd-header-container {
+    display: flex;
+    justify-content: space-between;
+    float:right;
+}
+
+.wd-header-left {
+    display: flex;
+}
+
+.wd-header-right {
+    display: flex;
+}
