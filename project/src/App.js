@@ -5,9 +5,9 @@ import { Route, Routes, Navigate } from "react-router";
 import Profile from "./profile";
 import Header from "./utils/header";
 import Home from "./home";
-import signIn from "./signIn";
 import MessageBoard from "./Community";
-import Register from "./signIn/register";
+import Signin from "./account/signin";
+import Signup from "./account/signup"
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Search from "./Search";
@@ -37,9 +37,9 @@ function App() {
 					<Route path="/" element={<Navigate to="Home" />}></Route>
 					<Route path="Home" element={<Home />}></Route>
 					<Route path="Community" element={<MessageBoard users={users} />}></Route>
-					<Route path="signIn" element={<signIn />}></Route>
-					<Route path="register" element={<Register />}></Route>
-					<Route path="Profile" element={<Profile />}></Route>
+					<Route path="profile" element={<Profile />}></Route>
+					<Route path="signin" element={<Signin />}></Route>
+					<Route path="signup" element={<Signup />}></Route>
 					<Route path="Search" element={<Search />}></Route>
 					<Route path={"Search/:searchId/*"} element={<AlbumDetail />}></Route>
 					<Route path={"Search/ShowAll/*"} element={<ShowAllSearch />}></Route>
