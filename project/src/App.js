@@ -10,7 +10,9 @@ import MessageBoard from "./Community";
 import Register from "./signIn/register";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+import Search from "./Search";
+import ShowAllSearch from "./Search/ShowAllSearch";
+import AlbumDetail from "./Search/AlbumDetail";
 
 function App() {
 	const [users, setUsers] = useState([]);
@@ -34,10 +36,13 @@ function App() {
 				<Routes>
 					<Route path="/" element={<Navigate to="Home" />}></Route>
 					<Route path="Home" element={<Home />}></Route>
-					<Route path="Community" element={<MessageBoard users={users}/>}></Route>
+					<Route path="Community" element={<MessageBoard users={users} />}></Route>
 					<Route path="signIn" element={<signIn />}></Route>
 					<Route path="register" element={<Register />}></Route>
 					<Route path="Profile" element={<Profile />}></Route>
+					<Route path="Search" element={<Search />}></Route>
+					<Route path={"Search/:searchId/*"} element={<AlbumDetail />}></Route>
+					<Route path={"Search/ShowAll/*"} element={<ShowAllSearch />}></Route>
 				</Routes>
 			</div>
 		</HashRouter>
