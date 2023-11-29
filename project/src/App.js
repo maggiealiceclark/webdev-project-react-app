@@ -9,8 +9,8 @@ import signIn from "./signIn";
 import MessageBoard from "./Community";
 import Register from "./signIn/register";
 import Search from "./Search";
-import ShowAllSearch from "./Search/ShowAllSearch"
-import AlbumDetail from "./Search/AlbumDetail";
+import ShowAllSearch from "./Search/SearchScreen/ShowAllSearch"
+import AlbumDetail from "./Search/AlbumDetail/AlbumDetail";
 
 function App() {
 	return (
@@ -26,7 +26,7 @@ function App() {
 					<Route path="Profile" element={<Profile />}></Route>
 					<Route path="Search" element={<Search/>}></Route>
 					<Route path={"Search/:searchId/*"} element={<AlbumDetail/>}></Route>
-					<Route path={"Search/ShowAll/*"} element={<ShowAllSearch/>}></Route>
+					<Route path={"Search/ShowAll/:title/*"} element={<ShowAllSearch/>}></Route>
 				</Routes>
 			</div>
 		</HashRouter>
