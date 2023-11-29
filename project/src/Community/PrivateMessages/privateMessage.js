@@ -5,14 +5,14 @@ import logo from "../../images/logo.png";
 import db from "../../utils/Database";
 
 function Message(props) {
-	const setExpandedId = props.setExpandedId;
+	const changeExpandedId = props.changeExpandedId;
 	const uid = parseInt(props.uid);
 	const user = db.users.find((user) => user.uid === uid);
 	return (
 		<div className="wd-community-private-message">
 			<div className="wd-community-private-message-header">
 				<div className="wd-message-profile-picture-container">
-					<button className="wd-message-profile-picture-button" onClick={() => setExpandedId(uid)}>
+					<button className="wd-message-profile-picture-button" onClick={() => changeExpandedId(uid)}>
 						<Image src={logo} alt="Profile Picture" roundedCircle className="wd-private-message-profile-picture" />
 					</button>
 				</div>
