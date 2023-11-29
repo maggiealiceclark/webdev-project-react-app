@@ -13,6 +13,7 @@ import axios from "axios";
 import Search from "./Search";
 import ShowAllSearch from "./Search/ShowAllSearch";
 import AlbumDetail from "./Search/AlbumDetail";
+import Register from "./signIn/register";
 
 function App() {
 	const [users, setUsers] = useState([]);
@@ -43,6 +44,9 @@ function App() {
 					<Route path="Search" element={<Search />}></Route>
 					<Route path={"Search/:searchId/*"} element={<AlbumDetail />}></Route>
 					<Route path={"Search/ShowAll/*"} element={<ShowAllSearch />}></Route>
+					<Route path="register" element={<Register />}></Route>
+					<Route path="Profile" element={<Profile />}></Route>
+					<Route path="EditProfile" element={<EditProfile />}></Route>
 				</Routes>
 			</div>
 		</HashRouter>
