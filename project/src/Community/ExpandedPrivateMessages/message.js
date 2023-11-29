@@ -6,7 +6,7 @@ import "./index.css";
 function ExpandedMessage(props) {
 	const message = props.message;
 	const users = props.users;
-	const sender = users.find((user) => user.id === message.sender);
+	const sender = users.find((user) => message.fromUid === user.uid);
 	return (
 		<div className="wd-community-expanded-private-message">
 			<div className="wd-community-expanded-private-message-user">
@@ -23,7 +23,7 @@ function ExpandedMessage(props) {
 				</div>
 			</div>
 			<div className="wd-community-expanded-private-message-body">
-				<h5>{message.input}</h5>
+				<p className="wd-community-expanded-private-message-text">{message.input}</p>
 			</div>
 		</div>
 	);

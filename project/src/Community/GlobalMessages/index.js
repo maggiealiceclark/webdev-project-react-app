@@ -6,7 +6,7 @@ import axios from "axios";
 function GlobalMessages() {
 	const [messages, setMessages] = useState([]);
 	const [message, setMessage] = useState("");
-	const [newInput, setNewInput] = useState(message.input);
+	const [newInput, setNewInput] = useState("");
 	const newMessage = {
 		...message,
 		input: newInput !== "" ? newInput : message.input,
@@ -15,12 +15,17 @@ function GlobalMessages() {
 
 	const API_BASE = "http://localhost:4000/api";
 	const GLOBAL_MESSAGE_URL = `${API_BASE}/messages/global`;
-
-	const findAllMessages = async () => {
-		const response = await axios.get(GLOBAL_MESSAGE_URL);
-		setMessages(response.data);
-	};
+	
 	useEffect(() => {
+		const findAllMessages = async () => {
+			try {
+				const response = await axios.get(GLOBAL_MESSAGE_URL);
+				setMessages(response.data);
+			} catch (error) {
+				console.error("Error fetching messages:", error);
+			}
+		};
+
 		findAllMessages();
 	}, []);
 
@@ -42,8 +47,8 @@ function GlobalMessages() {
 		<div className="wd-community-global-message-board">
 			<div className="wd-community-global-text-message">
 				<div className="wd-global-messages-container">
-					{messages.map((message, index) => (
-						<Message message={message} deleteMessage={deleteMessage} />
+					{messages.map((message) => (
+						<Message key={message._id} message={message} />
 					))}
 				</div>
 				<div>

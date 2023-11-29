@@ -12,7 +12,7 @@ function Message(props) {
 	return (
 		<div className="wd-message-container">
 			<div className="wd-message-user">
-				<Image src={logo} alt={user.name} roundedCircle className="wd-global-message-profile-picture" />
+				<Image src={logo} alt={"Profile Picture"} roundedCircle className="wd-global-message-profile-picture" />
 				<p className="wd-message-user-username">{user.name}</p>
 			</div>
 			<div className="wd-message-text">{text}</div>

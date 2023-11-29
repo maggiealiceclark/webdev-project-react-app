@@ -10,33 +10,38 @@
 	display: flex;
 	width: 120px;
 	height: 25px;
-	margin-top: 4px;
 	margin-left: 10px;
 	margin-right: 10px;
 	align-content: center;
+	margin-top: 12px;
 }
 
 .wd-expanded-private-message-name {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 400;
 }
 
 .wd-expanded-private-message-profile-picture {
-	width: 25px;
-	height: 25px;
+	width: 20px;
+	height: 20px;
 	border: 1px solid rgb(130, 130, 130);
 	border-radius: 50%;
 	overflow: hidden;
 	margin-right: 5px;
+	margin-top: 4px;
 }
 
 .wd-community-expanded-private-message-body {
 	display: flex;
-	flex-direction: column;
 	width: 100%;
 	margin-left: 10px;
 	margin-right: 10px;
-	margin-top: 5px;
-	margin-bottom: 5px;
+	margin-top: 15px;
 	word-wrap: break-word;
+
+}
+
+.wd-community-expanded-private-mnessage-text {
+	font-size: 16px;
+	font-weight: 500;
 }
