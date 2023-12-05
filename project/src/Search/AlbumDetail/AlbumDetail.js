@@ -1,7 +1,12 @@
+import TableSong from "./TableSong";
+
 const AlbumDetail = () => {
+
   return(
-    <div>
+    <div className={"container"}>
       <h1>Detail Album</h1>
+
+      <TableSong></TableSong>
     </div>
   )
 }

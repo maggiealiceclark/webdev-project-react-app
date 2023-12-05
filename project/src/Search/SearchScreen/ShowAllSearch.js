@@ -1,15 +1,16 @@
-import {Card, Col, Row} from "react-bootstrap";
-import {Link} from "react-router-dom";
-import Logo from "../images/albumcover.jpg";
-import db from "./SearchData/Database/music.json";
+import {Row} from "react-bootstrap";
+import {useParams} from "react-router-dom";
+import db from "../SearchData/Database/music.json";
 import SearchResultContainer from "./SearchResultContainer";
 import React from "react";
 
-const ShowAllSearch = ({name, id}) => {
+const ShowAllSearch = () => {
   const music = db;
+  const {title} = useParams()
 
   return (
-    <div>
+    <div className={"container"}>
+      <h2 className={"ms-0 m-3"}>{title}</h2>
         <Row className="justify-content-center">
           {music.map((music) => (
             <SearchResultContainer/>

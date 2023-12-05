@@ -1,7 +1,7 @@
-import "./index.css"
+import "../index.css"
 import {Link} from "react-router-dom";
-import Logo from "../images/albumcover.jpg";
-import { Card, Container, Row, Col } from 'react-bootstrap';
+import Logo from "../../images/albumcover.jpg";
+import { Card, Col } from 'react-bootstrap';
 
 const SearchResultContainer = ({name, id}) => {
   return (
@@ -10,7 +10,7 @@ const SearchResultContainer = ({name, id}) => {
           <Card className="mb-4">
             <Card.Img variant="top" src={Logo} alt={`Cover for ${name}`} />
             <Card.Body>
-            <Card.Title>{"Addele"}</Card.Title>
+            <Card.Title>{"Adele"}</Card.Title>
             <Card.Text>{"Some quick example text"}</Card.Text>
             </Card.Body>
           </Card>

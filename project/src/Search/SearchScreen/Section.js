@@ -1,8 +1,7 @@
-
 import {Row} from "react-bootstrap";
 import SearchResultContainer from "./SearchResultContainer";
 import React from "react";
-import db from "./SearchData/Database/music.json";
+import db from "../SearchData/Database/music.json";
 import {Link} from "react-router-dom";
 
 const Section = ({index}) => {
@@ -12,7 +11,7 @@ const Section = ({index}) => {
     <div>
       <div className={"d-flex justify-content-between m-2"}>
         <h2>{index}</h2>
-        <Link key={"1"} to={"/Search/ShowAll"} className={"mt-2"}>Show All</Link>
+        <Link key={"1"} to={`/Search/ShowAll/${index}`} className={"mt-2"}>Show All</Link>
       </div>
       <Row className="justify-content-center">
         {music.map((music) => (
