@@ -1,16 +1,24 @@
 import * as client from "./client";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-function Signin() {
+function Signin(props) {
+	const setIsAuthenticated = props.setIsAuthenticated;
+	const [error, setError] = useState("");
 	const [credentials, setCredentials] = useState({ username: "", password: "" });
 	const navigate = useNavigate();
 	const signin = async () => {
-		await client.signin(credentials);
-		navigate("/profile");
+		try {
+			await client.signin(credentials);
+			setIsAuthenticated(true);
+			navigate("/profile");
+		} catch (err) {
+			setError(err.response.data.message);
+		}
 	};
 	return (
 		<div>
 			<h1>Sign in</h1>
+			{error && <div>{error}</div>}
 			<input
 				value={credentials.username}
 				onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}

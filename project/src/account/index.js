@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Navbar, Nav, Container } from "react-bootstrap"; // Import Navbar components
-import Logo from "../images/Picture1.png";
+import Logo from "../images/logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function Profile() {
@@ -39,7 +39,7 @@ function Profile() {
 		<div>
 			<Navbar style={{ backgroundColor: "#2281a7", fontFamily: "system-ui" }} variant="dark" expand="lg">
 				<Container>
-					<div className="profile-photo">
+					<div className="profile-pto">
 						<img
 							class="rounded-circle border"
 							style={{ height: "200px", padding: "10px", margin: "10px" }}

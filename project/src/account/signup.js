@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as client from "./client";
-function Signup() {
+function Signup(props) {
+	const setIsAuthenticated = props.setIsAuthenticated;
 	const [error, setError] = useState("");
 	const [credentials, setCredentials] = useState({
 		username: "",
@@ -10,8 +11,8 @@ function Signup() {
 	const navigate = useNavigate();
 	const signup = async () => {
 		try {
-			console.log(credentials);
 			await client.signup(credentials);
+			setIsAuthenticated(true);
 			navigate("/profile");
 		} catch (err) {
 			setError(err.response.data.message);
