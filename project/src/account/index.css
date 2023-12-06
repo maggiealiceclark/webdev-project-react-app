@@ -1,0 +1,14 @@
+#navigation,
+.navbar .navbar-default {
+	background-image: url("/project/src/images/final.fm\ logo.png");
+	width: 400px;
+}
+
+.wd-username {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 0 10px;
+  padding: 0;
+  
+}
