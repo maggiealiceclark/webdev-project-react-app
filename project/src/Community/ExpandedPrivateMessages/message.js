@@ -19,7 +19,7 @@ function ExpandedMessage(props) {
 					/>
 				</div>
 				<div>
-					<p className="wd-expanded-private-message-name">{sender.name}</p>
+					<p className="wd-expanded-private-message-name">name</p>
 				</div>
 			</div>
 			<div className="wd-community-expanded-private-message-body">
