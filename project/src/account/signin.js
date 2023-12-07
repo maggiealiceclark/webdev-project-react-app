@@ -10,6 +10,7 @@ function Signin(props) {
 		try {
 			await client.signin(credentials);
 			setIsAuthenticated(true);
+			localStorage.setItem('isAuthenticated', true);
 			navigate("/profile");
 		} catch (err) {
 			setError(err.response.data.message);

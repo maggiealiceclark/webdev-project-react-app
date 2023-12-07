@@ -13,6 +13,7 @@ function Signup(props) {
 		try {
 			await client.signup(credentials);
 			setIsAuthenticated(true);
+			localStorage.setItem('isAuthenticated', true);
 			navigate("/profile");
 		} catch (err) {
 			setError(err.response.data.message);

@@ -19,7 +19,10 @@ import { UserProvider } from "./account/UserContext";
 
 function App() {
 	const [users, setUsers] = useState([]);
-	const [isAuthenticated, setIsAuthenticated] = useState(false);
+	const [isAuthenticated, setIsAuthenticated] = useState(() => {
+		const savedAuthState = localStorage.getItem("isAuthenticated");
+		return savedAuthState ? JSON.parse(savedAuthState) : false;
+	});
 
 	const API_BASE = "http://localhost:4000/api";
 	const USERS_URL = `${API_BASE}/users`;
