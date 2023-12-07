@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Source+Sans+3:ital,wght@0,500;1,400&display=swap');
+
+.font {
+  font-family: 'Source Sans 3', sans-serif;
+}
+
+.wd-header {
+  border-bottom: solid;
+}
+
+.table td, th {
+  vertical-align: middle;
+}
+
+
+.wd-table {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 20px;
+}
+
+/*
+CSS style for songRow
+ */
+.wd-songImg {
+  object-fit: cover;
+  width: 80px;
+  height: 80px;
+  /*padding: 5px 10px 5px 0px;*/
+  margin: 15px;
+}
+
+.wd-songRow {
+  border: 0; /* Remove all borders */
+  border-bottom: 1px solid lightgray;
+}
+
+.wd-songRow:hover {
+  /*opacity: 0.3;*/
+  background-color: lightgrey;
+}
+
+.wd-song-title {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 20px;
+}
+
+.wd-artist-title {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 16px;
+  color: darkgrey;
+}

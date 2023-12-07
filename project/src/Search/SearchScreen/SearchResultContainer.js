@@ -1,21 +1,23 @@
 import "../index.css"
 import {Link} from "react-router-dom";
-import Logo from "../../images/albumcover.jpg";
-import { Card, Col } from 'react-bootstrap';
+import {Col} from 'react-bootstrap';
 
-const SearchResultContainer = ({name, id}) => {
+import "./index.css"
+import CardMusic from "./CardMusic";
+
+const SearchResultContainer = ({name, id, imgLink, title}) => {
   return (
-      <Col lg={3} md={6} xs={12} key={id}>
-        <Link key={id} to={`/Search/${id}`}>
-          <Card className="mb-4">
-            <Card.Img variant="top" src={Logo} alt={`Cover for ${name}`} />
-            <Card.Body>
-            <Card.Title>{"Adele"}</Card.Title>
-            <Card.Text>{"Some quick example text"}</Card.Text>
-            </Card.Body>
-          </Card>
+    <Col lg={3} md={6} xs={12} key={id}>
+      {title === "Artists" ? (
+        <Link className={"noUnderline"} key={id} to={`/Search/${name}/${id}`}>
+          <CardMusic name={name} imgLink={imgLink}></CardMusic>
         </Link>
-      </Col>
+      ) : (
+        <Link className={"noUnderline"} key={id} to={`/Search/Album/${name}/${id}`}>
+          <CardMusic name={name} imgLink={imgLink}></CardMusic>
+        </Link>
+      )}
+    </Col>
   );
 }
 

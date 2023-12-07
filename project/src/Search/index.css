@@ -1,21 +1,25 @@
-.card.wd-container{
-  width: 220px;
-  height: 260px;
-  background-color: #454545;
-}
+/*.card.wd-container {*/
+/*  width: 220px;*/
+/*  height: 260px;*/
+/*  background-color: #454545;*/
+/*}*/
 
-.card.wd-container a {
-  text-decoration: none;
-}
+/*.card.wd-container a {*/
+/*  text-decoration: none;*/
+/*}*/
 
-.card-img-top{
-  width: 300px;
-}
+/*.card-img-top {*/
+/*  width: 300px;*/
+/*}*/
 
-.card-body h5{
-  color: white;
-}
+/*.card-body h5 {*/
+/*  color: white;*/
+/*}*/
 
-.card-body p{
-  color: gray;
+/*.card-body p {*/
+/*  color: gray;*/
+/*}*/
+
+.wd-searchbar {
+  height: 60px;
 }

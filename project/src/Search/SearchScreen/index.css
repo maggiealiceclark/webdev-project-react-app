@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Source+Sans+3:ital,wght@0,500;1,400&display=swap');
+
+.font {
+  font-family: 'Source Sans 3', sans-serif;
+}
+
+.wd-card {
+  max-height: 280px;
+}
+
+.wd-card:hover {
+  background-color: lightgray;
+  opacity: 0.5;
+}
+
+.wd-card-img {
+  max-height: 200px;
+  max-width: 100%;
+  object-fit: cover
+}
+
+.noUnderline {
+  text-decoration: none;
+}

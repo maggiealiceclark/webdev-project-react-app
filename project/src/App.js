@@ -12,8 +12,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Search from "./Search";
 import ShowAllSearch from "./Search/SearchScreen/ShowAllSearch";
-import AlbumDetail from "./Search/AlbumDetail/AlbumDetail";
+import AlbumDetail from "./Search/DetailScreen/AlbumDetail/AlbumDetail";
 import EditProfile from "./profile/editProfile";
+import ArtistDetail from "./Search/DetailScreen/ArtistDetail/ArtistDetail";
 import { UserProvider } from "./account/UserContext";
 
 function App() {
@@ -49,9 +50,10 @@ function App() {
 						)}
 						{isAuthenticated && (
 							<>
-								<Route path="/search" element={<Search />}></Route>
-								<Route path={"/search/:searchId/*"} element={<AlbumDetail />}></Route>
-								<Route path={"/search/ShowAll/:title/*"} element={<ShowAllSearch />}></Route>
+								<Route path="Search" element={<Search />}></Route>
+								<Route path={"search/Album/:albumName/:searchId/*"} element={<AlbumDetail />}></Route>
+								<Route path={"search/ShowAll/:title/*"} element={<ShowAllSearch />}></Route>
+								<Route path={"search/:artistName/:id"} element={<ArtistDetail />}></Route>
 								<Route path="/editprofile" element={<EditProfile />}></Route>
 								<Route path="/community" element={<MessageBoard users={users} />}></Route>
 								<Route path="signin" element={<Navigate to="Home" />}></Route>{" "}
