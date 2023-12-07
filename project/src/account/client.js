@@ -4,7 +4,7 @@ const request = axios.create({
 	withCredentials: true,
 });
 
-export const BASE_API = process.env.REACT_APP_API_BASE_URL;
+export const BASE_API = "http://localhost:4000/api";
 export const USERS_API = `${BASE_API}/users`;
 
 export const signup = async (credentials) => {

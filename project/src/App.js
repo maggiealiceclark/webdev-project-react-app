@@ -2,7 +2,7 @@ import "./App.css";
 import "./styles.css";
 import { HashRouter } from "react-router-dom";
 import { Route, Routes, Navigate } from "react-router";
-import Profile from "./profile";
+import Profile from "./account";
 import Header from "./utils/header";
 import Home from "./home";
 import MessageBoard from "./Community";
@@ -14,9 +14,11 @@ import Search from "./Search";
 import ShowAllSearch from "./Search/SearchScreen/ShowAllSearch";
 import AlbumDetail from "./Search/AlbumDetail/AlbumDetail";
 import EditProfile from "./profile/editProfile";
+import { UserProvider } from "./account/UserContext";
 
 function App() {
 	const [users, setUsers] = useState([]);
+	const [isAuthenticated, setIsAuthenticated] = useState(false);
 
 	const API_BASE = "http://localhost:4000/api";
 	const USERS_URL = `${API_BASE}/users`;
@@ -31,24 +33,40 @@ function App() {
 	}, []);
 
 	return (
-		<HashRouter>
-			<div className="wd-main-page">
-				<Header />
-				<Routes>
-					<Route path="/" element={<Navigate to="Home" />}></Route>
-					<Route path="Home" element={<Home />}></Route>
-					<Route path="Community" element={<MessageBoard users={users} />}></Route>
-					<Route path="profile" element={<Profile />}></Route>
-					<Route path="signin" element={<Signin />}></Route>
-					<Route path="signup" element={<Signup />}></Route>
-					<Route path="Search" element={<Search />}></Route>
-					<Route path={"Search/:searchId/*"} element={<AlbumDetail />}></Route>
-					<Route path={"Search/ShowAll/:title/*"} element={<ShowAllSearch />}></Route>
-					<Route path="Profile" element={<Profile />}></Route>
-					<Route path="EditProfile" element={<EditProfile />}></Route>
-				</Routes>
-			</div>
-		</HashRouter>
+		<UserProvider>
+			<HashRouter>
+				<div className="wd-main-page">
+					<Header />
+					<Routes>
+						{!isAuthenticated && (
+							<>
+								<Route path="/signin" element={<Signin setIsAuthenticated={setIsAuthenticated} />}></Route>
+								<Route path="/signup" element={<Signup setIsAuthenticated={setIsAuthenticated} />}></Route>
+								<Route path="/search/*" element={<Navigate to="/signin" />}></Route>
+								<Route path="/community/" element={<Navigate to="/signin" />}></Route>
+								<Route path="/editprofile" element={<Navigate to="/signin" />}></Route>
+							</>
+						)}
+						{isAuthenticated && (
+							<>
+								<Route path="/search" element={<Search />}></Route>
+								<Route path={"/search/:searchId/*"} element={<AlbumDetail />}></Route>
+								<Route path={"/search/ShowAll/:title/*"} element={<ShowAllSearch />}></Route>
+								<Route path="/editprofile" element={<EditProfile />}></Route>
+								<Route path="/community" element={<MessageBoard users={users} />}></Route>
+								<Route path="signin" element={<Navigate to="Home" />}></Route>{" "}
+								{/* Redirect to Home if already signed in or signed out */}
+								<Route path="signup" element={<Navigate to="Home" />}></Route>,
+							</>
+						)}
+						<Route path="/" element={<Navigate to="Home" />}></Route>
+						<Route path="/home" element={<Home />}></Route>
+						<Route path="/profile" element={<Profile />}></Route>
+						<Route path="/profile/:id" element={<Profile />} />
+					</Routes>
+				</div>
+			</HashRouter>
+		</UserProvider>
 	);
 }
 

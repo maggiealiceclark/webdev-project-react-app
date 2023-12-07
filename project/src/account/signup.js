@@ -1,27 +1,47 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as client from "./client";
-function Signup() {
-	const [credentials, setCredentials] = useState({ username: "", password: "" });
+function Signup(props) {
+	const setIsAuthenticated = props.setIsAuthenticated;
+	const [error, setError] = useState("");
+	const [credentials, setCredentials] = useState({
+		username: "",
+		password: "",
+	});
 	const navigate = useNavigate();
-	const signin = async () => {
-		await client.signin(credentials);
-		navigate("/profile");
+	const signup = async () => {
+		try {
+			await client.signup(credentials);
+			setIsAuthenticated(true);
+			navigate("/profile");
+		} catch (err) {
+			setError(err.response.data.message);
+		}
 	};
 	return (
 		<div>
-			<h1>Sign up</h1>
+			<h1>Signup</h1>
+			{error && <div>{error}</div>}
 			<input
 				value={credentials.username}
-				onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
+				onChange={(e) =>
+					setCredentials({
+						...credentials,
+						username: e.target.value,
+					})
+				}
 			/>
 			<input
 				value={credentials.password}
-				onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
+				onChange={(e) =>
+					setCredentials({
+						...credentials,
+						password: e.target.value,
+					})
+				}
 			/>
-			<button onClick={signin}> Sign up </button>
+			<button onClick={signup}>Signup</button>
 		</div>
 	);
 }
-
 export default Signup;
