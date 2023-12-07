@@ -3,7 +3,7 @@ import {useParams} from "react-router-dom";
 import SearchResultContainer from "./SearchResultContainer";
 import React from "react";
 
-const ShowAllSearch = () => {
+const ShowAllSearch = ({result}) => {
   const {title} = useParams()
 
   return (
@@ -18,7 +18,6 @@ const ShowAllSearch = () => {
     </div>
 
   );
-
 }
 
 export default ShowAllSearch;

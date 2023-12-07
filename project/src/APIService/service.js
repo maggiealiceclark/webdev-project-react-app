@@ -5,6 +5,7 @@ import axios from "axios";
 
 const CLIENT_ID = "eab636e800464d89b753ce800c4f7bc3"
 const CLIENT_SECRETE = "4ae849ed75f741edb09e2e351cf92455"
+const SPOTIFY_URL = 'https://api.spotify.com/v1'
 
 export const getToken = async () => {
   const response = await axios.post(
@@ -23,7 +24,7 @@ export const getToken = async () => {
   return response.data.access_token;
 }
 
-export const getArtists = async (accessToken, query, types, limit = 4) => {
+export const getSearchResult = async (accessToken, query, types, limit = 4) => {
   const response = await axios.get(
     "https://api.spotify.com/v1/search",
     {
@@ -36,5 +37,35 @@ export const getArtists = async (accessToken, query, types, limit = 4) => {
         limit: limit,
       },
     })
+  return response.data
+}
+
+export const getTopTrack = async (accessToken, artist_Id, market = "US") => {
+  const response = await axios.get(
+    `${SPOTIFY_URL}/artists/${artist_Id}/top-tracks?market=${market}`,
+    {
+      headers: {'Authorization': `Bearer ${accessToken}`}
+    }
+  );
+  return response.data.tracks;
+}
+
+export const getALbumDetail = async (accessToken, album_Id) => {
+  const response = await axios.get(
+    `${SPOTIFY_URL}/albums/${album_Id}`,
+    {
+      headers: {'Authorization': `Bearer ${accessToken}`}
+    }
+  );
+  return response.data
+}
+
+export const getArtistDetail = async (accessToken, artist_Id) => {
+  const response = await axios.get(
+    `${SPOTIFY_URL}/artists/${artist_Id}`,
+    {
+      headers: {'Authorization': `Bearer ${accessToken}`}
+    }
+  );
   return response.data
 }
