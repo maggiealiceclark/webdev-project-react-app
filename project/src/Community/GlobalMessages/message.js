@@ -1,26 +1,55 @@
+import React, { useState, useEffect } from 'react';
 import "./message.css";
 import { Image } from "react-bootstrap";
-import db from "../../utils/Database";
 import logo from "../../images/logo.png";
 import { RxCross1 } from "react-icons/rx";
+import * as userClient from "../../account/client";
+import * as messageClient from "./client";
 
-function Message(props) {
-	const message = props.message;
-	const text = message.input;
-	const user = db.users.find((user) => user.uid === message.uid);
-	const deleteMessage = props.deleteMessage;
-	return (
-		<div className="wd-message-container">
-			<div className="wd-message-user">
-				<Image src={logo} alt={"Profile Picture"} roundedCircle className="wd-global-message-profile-picture" />
-				<p className="wd-message-user-username">{user.name}</p>
-			</div>
-			<div className="wd-message-text">{text}</div>
-			<div className="wd-message-delete" onClick={() => deleteMessage(message)}>
-				<RxCross1 />
-			</div>
-		</div>
-	);
+function Message({ message, onDelete }) {
+  const [user, setUser] = useState(null);
+  const text = message.input;
+  const userId = message.userId;
+
+  const deleteMessage = async () => {
+    try {
+      await messageClient.deleteMessage(message);
+      onDelete(message); // Update local state by invoking the callback
+    } catch (error) {
+      console.error('Error deleting message:', error);
+    }
+  };
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const userResponse = await userClient.findUserById(userId);
+        setUser(userResponse);
+      } catch (error) {
+        console.error('Error fetching user:', error);
+      }
+    };
+
+    fetchUser();
+  }, [userId]);
+
+  if (!user) {
+    // Render loading state or return null if user is not available yet
+    return null;
+  }
+
+  return (
+    <div className="wd-message-container">
+      <div className="wd-message-user">
+        <Image src={logo} alt={"Profile Picture"} roundedCircle className="wd-global-message-profile-picture" />
+        <p className="wd-message-user-username">{user.username}</p>
+      </div>
+      <div className="wd-message-text">{text}</div>
+      <div className="wd-message-delete" onClick={deleteMessage}>
+        <RxCross1 />
+      </div>
+    </div>
+  );
 }
 
 export default Message;

@@ -32,7 +32,7 @@ function Header() {
 						<Nav.Link href="#/home">Home</Nav.Link>
 						<Nav.Link href="#/profile/">Profile</Nav.Link>
 						<Nav.Link href="#/community">Community</Nav.Link>
-						<Nav.Link href={"#/search"}>Search</Nav.Link>
+						<Nav.Link href="#/search">Search</Nav.Link>
 					</Nav>
 					{savedAuthState && (
 						<>
