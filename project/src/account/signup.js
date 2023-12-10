@@ -7,6 +7,7 @@ function Signup(props) {
 	const [credentials, setCredentials] = useState({
 		username: "",
 		password: "",
+		role: "USER",
 	});
 	const navigate = useNavigate();
 	const signup = async () => {
@@ -41,6 +42,15 @@ function Signup(props) {
 					})
 				}
 			/>
+			<input type="checkbox" 
+				onClick={(e) =>
+					setCredentials({
+						...credentials,
+						role: "ADMIN",
+					})
+				}
+			/>
+
 			<button onClick={signup}>Signup</button>
 		</div>
 	);
