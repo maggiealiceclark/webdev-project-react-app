@@ -14,35 +14,32 @@ function Signup(props) {
 		try {
 			await client.signup(credentials);
 			setIsAuthenticated(true);
-			localStorage.setItem('isAuthenticated', true);
+			localStorage.setItem("isAuthenticated", true);
+			localStorage.setItem("user", credentials.username);
+			window.location.reload();
+
 			navigate("/profile");
 		} catch (err) {
-			setError(err.response.data.message);
+			setError("Username already exists. Please try again");
 		}
 	};
 	return (
 		<div>
 			<h1>Signup</h1>
-			{error && <div>{error}</div>}
+			{error && <div style={{ color: "red" }}>{error}</div>}
 			<input
 				value={credentials.username}
-				onChange={(e) =>
-					setCredentials({
-						...credentials,
-						username: e.target.value,
-					})
-				}
+				onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
+				placeholder="Username"
 			/>
 			<input
+				type="password"
 				value={credentials.password}
-				onChange={(e) =>
-					setCredentials({
-						...credentials,
-						password: e.target.value,
-					})
-				}
+				onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
+				placeholder="Password"
 			/>
-			<input type="checkbox" 
+			<input
+				type="checkbox"
 				onClick={(e) =>
 					setCredentials({
 						...credentials,
