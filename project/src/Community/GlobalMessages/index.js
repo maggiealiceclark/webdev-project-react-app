@@ -1,54 +1,73 @@
+import * as client from "./client";
 import { React, useState, useEffect } from "react";
 import "./index.css";
 import Message from "./message";
 import axios from "axios";
 
+const API_BASE = "http://localhost:4000/api";
+const API_MESSAGE = `${API_BASE}/messages/`;
+
 function GlobalMessages() {
 	const [messages, setMessages] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
 	const [message, setMessage] = useState("");
 	const [newInput, setNewInput] = useState("");
-	const newMessage = {
-		...message,
-		input: newInput !== "" ? newInput : message.input,
-		uid: Math.floor(Math.random() * 5) + 1,
+	const [profile, setProfile] = useState(null);
+
+	const fetchAccount = async () => {
+		const account = await client.account();
+		setProfile(account);
+		setIsLoading(false);
 	};
 
-	const API_BASE = "http://localhost:4000/api";
-	const GLOBAL_MESSAGE_URL = `${API_BASE}/messages/global`;
-	
-	useEffect(() => {
-		const findAllMessages = async () => {
-			try {
-				const response = await axios.get(GLOBAL_MESSAGE_URL);
-				setMessages(response.data);
-			} catch (error) {
-				console.error("Error fetching messages:", error);
-			}
-		};
+	const addNewMessage = async (event) => {
+		event.preventDefault();
+		console.log(profile);
 
+		if (newInput === "") {
+			return;
+		}
+
+		try {
+			const response = await client.createMessage({
+				userId: profile._id,
+				input: newInput !== "" ? newInput : message.input,
+				date: "Today", // Add the current date for the new message
+			});
+
+			setMessages([...messages, response]);
+			setNewInput("");
+		} catch (error) {
+			console.error("Error creating message:", error);
+		}
+	};
+
+	const deleteMessage = async (deletedMessage) => {
+		try {
+			await client.deleteMessage(deletedMessage);
+			// Update local state by filtering out the deleted message
+			setMessages((prevMessages) => prevMessages.filter((m) => m._id !== deletedMessage._id));
+		} catch (error) {
+			console.error("Error deleting message:", error);
+		}
+	};
+
+	const findAllMessages = async () => {
+		const response = await client.findAllMessages();
+		setMessages(response);
+	};
+
+	useEffect(() => {
+		fetchAccount();
 		findAllMessages();
 	}, []);
-
-	const addNewMessage = async () => {
-		const response = await axios.post(GLOBAL_MESSAGE_URL, newMessage);
-		if (response.data) {
-			setMessages([...messages, response.data]);
-		}
-		setMessage(message);
-		setNewInput("");
-	};
-	const deleteMessage = async (message) => {
-		console.log(message);
-		const response = await axios.delete(`${GLOBAL_MESSAGE_URL}/${message._id}`);
-		setMessages(messages.filter((c) => c._id !== message._id));
-	};
 
 	return (
 		<div className="wd-community-global-message-board">
 			<div className="wd-community-global-text-message">
 				<div className="wd-global-messages-container">
 					{messages.map((message) => (
-						<Message key={message._id} message={message} />
+						<Message message={message} onDelete={deleteMessage} />
 					))}
 				</div>
 				<div>
@@ -72,4 +91,5 @@ function GlobalMessages() {
 		</div>
 	);
 }
+
 export default GlobalMessages;

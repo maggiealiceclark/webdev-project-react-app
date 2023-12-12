@@ -15,7 +15,7 @@ function MessageBoard(props) {
 	return (
 		<div>
 			<div className="wd-community-main">
-				<PrivateMessages changeExpandedId={changeExpandedId} />
+				{/* <PrivateMessages changeExpandedId={changeExpandedId} /> */}
 				<GlobalMessages />
 			</div>
 			{expandedId !== 0 && <ExpandedPrivateMessages expandedId={expandedId} users={users} />}

@@ -53,3 +53,7 @@ export const changeEmail = async (email, id) => {
 	  throw error; 
 	}
   };
+export const findUserByUsername = async (username) => {
+	const response = await request.get(`${USERS_API}/username/${username}`);
+	return response.data;
+};

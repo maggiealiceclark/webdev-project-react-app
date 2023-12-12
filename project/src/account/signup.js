@@ -7,6 +7,7 @@ function Signup(props) {
 	const [credentials, setCredentials] = useState({
 		username: "",
 		password: "",
+		role: "USER",
 	});
 	const navigate = useNavigate();
 	const signup = async () => {
@@ -15,33 +16,40 @@ function Signup(props) {
 			setIsAuthenticated(true);
 			localStorage.setItem('isAuthenticated', true);
 			localStorage.setItem("accountCreationDate", userData.accountCreationDate);
+			localStorage.setItem("isAuthenticated", true);
+			localStorage.setItem("user", credentials.username);
+			window.location.reload();
+
 			navigate("/profile");
 		} catch (err) {
-			setError(err.response.data.message);
+			setError("Username already exists. Please try again");
 		}
 	};
 	return (
 		<div>
 			<h1>Signup</h1>
-			{error && <div>{error}</div>}
+			{error && <div style={{ color: "red" }}>{error}</div>}
 			<input
 				value={credentials.username}
-				onChange={(e) =>
-					setCredentials({
-						...credentials,
-						username: e.target.value,
-					})
-				}
+				onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
+				placeholder="Username"
 			/>
 			<input
+				type="password"
 				value={credentials.password}
-				onChange={(e) =>
+				onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
+				placeholder="Password"
+			/>
+			<input
+				type="checkbox"
+				onClick={(e) =>
 					setCredentials({
 						...credentials,
-						password: e.target.value,
+						role: "ADMIN",
 					})
 				}
 			/>
+
 			<button onClick={signup}>Signup</button>
 		</div>
 	);
