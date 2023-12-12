@@ -76,6 +76,7 @@ function App() {
 								<Route path={"search/ShowAll/:title/*"} element={<ShowAllSearch />}></Route>
 								<Route path={"search/:artistName/:id"} element={<ArtistDetail />}></Route>
 								<Route path="/editprofile" element={<EditProfile />}></Route>
+								<Route path="/profile" element={<Profile />}></Route>
 								{/*Community stuff*/}
 								<Route path="/community" element={<MessageBoard users={users} />}></Route>
 								{/* Redirect to Home if already signed in or signed out */}

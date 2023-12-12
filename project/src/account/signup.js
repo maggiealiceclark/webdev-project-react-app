@@ -8,6 +8,7 @@ function Signup(props) {
 		username: "",
 		password: "",
 		role: "USER",
+		accountCreationDate: new Date(),
 	});
 	const navigate = useNavigate();
 	const signup = async () => {
