@@ -11,9 +11,10 @@ function Signup(props) {
 	const navigate = useNavigate();
 	const signup = async () => {
 		try {
-			await client.signup(credentials);
+			const userData = await client.signup(credentials);
 			setIsAuthenticated(true);
 			localStorage.setItem('isAuthenticated', true);
+			localStorage.setItem("accountCreationDate", userData.accountCreationDate);
 			navigate("/profile");
 		} catch (err) {
 			setError(err.response.data.message);

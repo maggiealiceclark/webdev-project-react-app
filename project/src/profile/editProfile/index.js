@@ -3,13 +3,78 @@ import { Link } from "react-router-dom";
 import { Navbar, Nav, Container } from "react-bootstrap"; // Import Navbar components
 import { Routes, Route, Navigate } from "react-router";
 import { Provider } from "react-redux";
-import Logo from "../../images/Picture1.png";
+import Logo from "../../images/logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Carousel from 'react-bootstrap/Carousel';
-import ExampleCarouselImage from '../../images/Picture1.png';
+import Carousel from "react-bootstrap/Carousel";
+import ExampleCarouselImage from "../../images/Picture1.png";
+import * as client from "../../account/client";
+import { changeEmail } from "../../account/client";
+import { useState, useEffect } from "react";
+import { useNavigate, useSearchParams, useParams } from "react-router-dom";
+import ArtistDetail from "../../Search/DetailScreen/ArtistDetail/ArtistDetail";
+import {artistId} from "../../Search/DetailScreen/ArtistDetail/ArtistDetail";
 
 
-function EditProfile() {
+function EditProfile({artistId}) {
+  const { id } = useParams();
+  const [test] = useSearchParams();
+  // const { artistId } = useParams();
+  const nid = test.get("id");
+  const { user } = useParams();
+  const [profile, setProfile] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [email, setNewEmail] = useState("");
+  const [error, setError] = useState("");
+  const [credentials, setCredentials] = useState({
+    username: "",
+    password: "",
+    email: "",
+  });
+  const [favoriteArtist, setFavoriteArtist] = useState("");
+  const handleChangeEmail = async () => {
+    try {
+      console.log("the id", id, nid);
+      const result = await changeEmail(email, nid);
+      setProfile({ ...profile, email: email });
+
+      if (result) {
+        alert("Email changed successfully");
+      } else {
+        console.error("changeEmail API call did not work");
+      }
+    } catch (error) {
+      // Handle errors
+      console.error("Error changing email:", error);
+    }
+  };
+
+  const handleChangeArtist = (e) => {
+    setFavoriteArtist(e.target.value);
+  };
+
+  const findUserById = async (id) => {
+    const user = await client.findUserById(id);
+    setProfile(user);
+    setIsLoading(false);
+  };
+
+  const fetchAccount = async () => {
+    const account = await client.account();
+    setProfile(account);
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    if (id) {
+      findUserById(id);
+    } else {
+      fetchAccount();
+    }
+  }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
     <div>
       <Navbar
@@ -32,7 +97,7 @@ function EditProfile() {
             className="mx-auto font-weight-bold"
             style={{ padding: "5px" }}
           >
-            That guy
+            {profile.username}
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
@@ -45,11 +110,26 @@ function EditProfile() {
                 style={{ color: "#65cfd4" }}
               />
               <Nav.Link as={Link} to="/Home">
-                That guy has been listening since DATE OF ACCOUNT CREATION!
+                {profile.username} has been listening since{" "}
+                {profile.accountCreationDate}!
               </Nav.Link>
-              <Nav.Link as={Link} to="/Home">
-                That guy's current favorite song is SONG NAME
-              </Nav.Link>
+              <Nav.Item>
+                {profile.username}'s current favorite artist is{" "}
+                {/* Display the favorite artist name as a link */}
+                <Link
+                key={"1"} to={`/Search/${favoriteArtist}/${artistId}`} className={"mt-2"}
+              
+                >
+                  {favoriteArtist}
+                </Link>
+                {/* Input for changing favorite artist */}
+                <input
+                  type="text"
+                  value={favoriteArtist}
+                  onChange={handleChangeArtist}
+                  placeholder="Type your favorite artist here"
+                />
+              </Nav.Item>
             </Nav>
           </Navbar.Collapse>
         </Container>
@@ -78,44 +158,50 @@ function EditProfile() {
               >
                 My Most Recent Tracks
               </h2>
-            
-            <Carousel>
-      <Carousel.Item>
-      <img
-      className="d-block w-100"
-      src="../../images/Picture1.png" // Replace with your image source
-      alt="First slide"
-    />
-        <Carousel.Caption>
-          <h3>First slide label</h3>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-      <img
-      className="d-block w-100"
-      src="../../images/Picture1.png" // Replace with your image source
-      alt="First slide"
-    />        <Carousel.Caption>
-          <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-      <img
-      className="d-block w-100"
-      src="../../images/Picture1.png" // Replace with your image source
-      alt="First slide"
-    />        <Carousel.Caption>
-          <h3>Third slide label</h3>
-          <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-          </p>
-        </Carousel.Caption>
-      </Carousel.Item>
-    </Carousel>
+
+              <Carousel>
+                <Carousel.Item>
+                  <img
+                    className="d-block w-100"
+                    src="../../images/Picture1.png" // Replace with your image source
+                    alt="First slide"
+                  />
+                  <Carousel.Caption>
+                    <h3>First slide label</h3>
+                    <p>
+                      Nulla vitae elit libero, a pharetra augue mollis interdum.
+                    </p>
+                  </Carousel.Caption>
+                </Carousel.Item>
+                <Carousel.Item>
+                  <img
+                    className="d-block w-100"
+                    src="../../images/Picture1.png" // Replace with your image source
+                    alt="First slide"
+                  />{" "}
+                  <Carousel.Caption>
+                    <h3>Second slide label</h3>
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    </p>
+                  </Carousel.Caption>
+                </Carousel.Item>
+                <Carousel.Item>
+                  <img
+                    className="d-block w-100"
+                    src="../../images/Picture1.png" // Replace with your image source
+                    alt="First slide"
+                  />{" "}
+                  <Carousel.Caption>
+                    <h3>Third slide label</h3>
+                    <p>
+                      Praesent commodo cursus magna, vel scelerisque nisl
+                      consectetur.
+                    </p>
+                  </Carousel.Caption>
+                </Carousel.Item>
+              </Carousel>
             </div>
-          
           </div>
           {/* SECOND COLUMN */}
           <div
@@ -128,16 +214,17 @@ function EditProfile() {
           >
             <div className="profile-info">
               <h2 class="display-6" style={{ paddingTop: "20px" }}>
-                My Name
+                {profile.username} Settings
               </h2>
-              <p>Email: myemail.com</p>
-              <a
-                href="https://example.com/johndoe"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Social Media Link
-              </a>
+              <br></br>
+              <label>New Email:</label>
+              <input
+                style={{ padding: "5px", margin: "5px" }}
+                type="email"
+                value={profile.email}
+                onChange={(e) => setNewEmail(e.target.value)}
+              />
+              <button onClick={handleChangeEmail}>Change Email</button>
             </div>
           </div>
           {/* THIRD COLUMN */}

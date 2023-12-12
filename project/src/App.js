@@ -56,7 +56,7 @@ function App() {
 								<Route path="Search" element={<Search />}></Route>
 								<Route path={"search/Album/:albumName/:searchId/*"} element={<AlbumDetail />}></Route>
 								<Route path={"search/ShowAll/:title/*"} element={<ShowAllSearch />}></Route>
-								<Route path={"search/:artistName/:id"} element={<ArtistDetail />}></Route>
+								<Route path={"search/:artistName/:artistId"} element={<ArtistDetail />}></Route>
 								<Route path="/editprofile" element={<EditProfile />}></Route>
 								<Route path="/community" element={<MessageBoard users={users} />}></Route>
 								<Route path="signin" element={<Navigate to="Home" />}></Route>{" "}

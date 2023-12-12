@@ -43,3 +43,13 @@ export const findUserById = async (id) => {
 	const response = await request.get(`${USERS_API}/${id}`);
 	return response.data;
 };
+
+export const changeEmail = async (email, id) => {
+	try {
+	  const response = await request.post(`${USERS_API}/changeEmail/${id}`, { email });
+	  return response.data; 
+	} catch (error) {
+	  console.error("Error changing email:", error);
+	  throw error; 
+	}
+  };
