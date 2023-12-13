@@ -85,7 +85,7 @@ function UserTable() {
 					{users.map((user) => (
 						<tr key={user._id}>
 							<td>
-								<Link to={`/Kanbas/account/${user._id}`}>{user.username}</Link>
+								<Link to={`/profile/${user._id}`}>{user.username}</Link>
 							</td>
 							<td>{user.firstName}</td>
 							<td>{user.lastName}</td>
