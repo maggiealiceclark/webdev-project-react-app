@@ -97,6 +97,7 @@ export const getArtistImage = async (accessToken, artistName) => {
 }
 
 export const getTrackImage = async (accessToken, trackName) => {
+  console.log(accessToken);
   const response = await axios.get(
     `${SPOTIFY_URL}/search`, 
     {
