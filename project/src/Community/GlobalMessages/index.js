@@ -22,17 +22,17 @@ function GlobalMessages() {
 
 	const addNewMessage = async (event) => {
 		event.preventDefault();
-		console.log(profile);
 
 		if (newInput === "") {
 			return;
 		}
 
 		try {
+			let date = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 			const response = await client.createMessage({
 				userId: profile._id,
 				input: newInput !== "" ? newInput : message.input,
-				date: "Today", // Add the current date for the new message
+				date: `-  ${date}`, // Add the current date for the new message
 			});
 
 			setMessages([...messages, response]);
@@ -63,29 +63,37 @@ function GlobalMessages() {
 	}, []);
 
 	return (
-		<div className="wd-community-global-message-board">
-			<div className="wd-community-global-text-message">
-				<div className="wd-global-messages-container">
-					{messages.map((message) => (
-						<Message message={message} onDelete={deleteMessage} />
-					))}
-				</div>
-				<div>
-					<form onSubmit={addNewMessage}>
-						<input
-							type="text"
-							value={newInput}
-							onClick={(event) => {
-								event.preventDefault();
-								event.stopPropagation();
-							}}
-							onChange={(event) => {
-								setNewInput(event.target.value);
-							}}
-							className="wd-community-global-text-message-text-box"
-						/>
-						<button type="submit">Send</button>
-					</form>
+		<div className="wd-community">
+			<div className="wd-community-header">
+				<p className="wd-community-header-text">Final.fm Community Board </p>
+			</div>
+			<div className="wd-community-global-message-board">
+				<div className="wd-community-global-text-message">
+					<div className="wd-global-messages-container">
+						{messages.map((message) => (
+							<Message key={message._id} message={message} onDelete={deleteMessage} role={profile.role} />
+						))}
+					</div>
+					<div className="wd-new-message-container">
+						<form onSubmit={addNewMessage}>
+							<input
+								type="text"
+								value={newInput}
+								onClick={(event) => {
+									event.preventDefault();
+									event.stopPropagation();
+								}}
+								onChange={(event) => {
+									setNewInput(event.target.value);
+								}}
+								className="wd-community-global-text-message-text-box"
+								placeholder="Type your message..."
+							/>
+							<button type="submit" className="wd-button">
+								Send
+							</button>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>

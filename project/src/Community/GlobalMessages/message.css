@@ -1,60 +1,103 @@
 .wd-message-container {
-    display: flex;
-    height: fit-content;
-    width: 95%;
-    align-items: flex-start;
+	display: flex;
+	height: fit-content;
+	width: 100%;
+	align-items: flex-start;
+	position: relative;
+	word-break: break-word;
 }
 
 .wd-message-user {
-    display: flex;
-    width: 120px;
-    height: 25px;
-    margin-top: 4px;
-    margin-left: 10px;
-    margin-right: 10px;
-    align-content: center;
+	display: flex;
+	width: 120px;
+	height: 25px;
+	margin-top: 4px;
+	margin-left: 10px;
+	margin-right: 10px;
+	align-content: center;
+	word-break: keep-all;
 }
 
 .wd-message-user-username {
-    font-weight: 600;
-
+	font-weight: 600;
 }
 
 .wd-global-message-profile-picture {
-    width: 20px;
-    height: 20px;
-    border: 1px solid rgb(130, 130, 130);
-    border-radius: 50%;
-    overflow: hidden;
-    margin-right: 5px;
+	width: 20px;
+	height: 20px;
+	border: 1px solid rgb(130, 130, 130);
+	border-radius: 50%;
+	overflow: hidden;
+	margin-right: 5px;
 }
 
 .wd-message-profile-picture-container {
-    margin: 5px;
-    margin-right: 5px;
+	margin: 5px;
+	margin-right: 5px;
 }
 
 .wd-message-text {
-    width: 50rem;
-    max-width: 50rem;
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    word-wrap: break-word;
+	max-width: 50rem;
+	width: fit-content;
+	max-width: 50rem;
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	word-wrap: break-word;
 }
 
 .wd-message-delete {
-    display: flex;
-    position: absolute;
-    right: 0;
-    align-items: center;
-    justify-content: center;
-    width: 20px;
-    height: 20px;
-    padding-top: 8px;
-    margin-right: 10px;
-    cursor: pointer;
-    font-weight: 100;
-    color: rgb(180, 180, 180);
+	display: flex;
+	position: absolute;
+	right: 0;
+	align-items: center;
+	justify-content: center;
+	width: 20px;
+	height: 20px;
+	padding-top: 8px;
+	margin-right: 10px;
+	cursor: pointer;
+	font-weight: 100;
+	color: rgb(180, 180, 180);
+}
+
+.wd-message-user-link {
+	color: rgb(0, 0, 0);
+	text-decoration: none;
+}
+
+.wd-message-user-username {
+	font-weight: 500;
+}
+
+.wd-message-delete {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 20px;
+	height: 20px;
+	padding-top: 8px;
+	margin-right: 10px;
+	cursor: pointer;
+	font-weight: 100;
+	color: rgb(180, 180, 180);
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	right: 0;
+}
+
+.wd-message-contents {
+	display: flex;
+	align-items: center;
+	justify-content: start !important;
+	max-width: 100%;
+}
+
+.wd-message-date {
+	font-size: 0.8rem;
+	color: rgb(130, 130, 130);
+	margin-left: 10px;
+	margin-right: 10px;
 }

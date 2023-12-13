@@ -1,6 +1,7 @@
 import * as client from "./client";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./signin.css"; // Import your CSS file
 
 function Signin(props) {
 	const setIsAuthenticated = props.setIsAuthenticated;
@@ -23,20 +24,29 @@ function Signin(props) {
 
 	return (
 		<div>
-			<h1>Sign in</h1>
-			{error && <div style={{ color: "red" }}>{error}</div>}
-			<input
-				value={credentials.username}
-				onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
-				placeholder="Username"
-			/>
-			<input
-				type="password"
-				value={credentials.password}
-				onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
-				placeholder="Password"
-			/>
-			<button onClick={signin}>Sign in</button>
+			<div className="wd-signin-container">
+				<h1>Sign In</h1>
+				{error && <div className="wd-error-message">{error}</div>}
+				<input
+					value={credentials.username}
+					onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
+					placeholder="Username"
+					className="wd-input-field"
+				/>
+				<input
+					type="password"
+					value={credentials.password}
+					onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
+					placeholder="Password"
+					className="wd-input-field"
+				/>
+				<button onClick={signin} className="wd-button">
+					Sign in
+				</button>
+			</div>
+			<div className="wd-not-a-member">
+				Not a member? <a href="#/signup">Sign up</a>
+			</div>
 		</div>
 	);
 }
