@@ -12,7 +12,7 @@ import { useEffect } from "react";
 const API_BASE = "http://localhost:4000/api";
 const USERS_URL = `${API_BASE}/users`;
 
-function Header({ setIsAuthenticated }) {
+function Header({ setIsAuthenticated, onSignOut }) {
 	const [user, setUser] = useState(null);
 	const savedAuthState = localStorage.getItem("isAuthenticated");
 	const [error, setError] = useState("");
@@ -26,6 +26,7 @@ function Header({ setIsAuthenticated }) {
 			localStorage.removeItem("user");
 			localStorage.removeItem("username");
 			setIsAuthenticated(false);
+			onSignOut()
 			navigate("/home"); // Redirect to the home page after signing out
 		} catch (err) {
 			setError(err.response.data.message);

@@ -25,7 +25,12 @@ const USERS_URL = `${API_BASE}/users`;
 function App() {
 	const [users, setUsers] = useState([]);
 	const [user, setUser] = useState(null);
+	const [signoutStatus, setSignoutStatus] = useState(false);
 
+	const onSignOut = () => {
+		setSignoutStatus(true);
+		setIsAuthenticated()
+	};
 	const fetchUsers = async () => {
 		const response = await axios.get(USERS_URL);
 		setUsers(response.data);
@@ -56,7 +61,7 @@ function App() {
 		<UserProvider>
 			<HashRouter>
 				<div className="wd-main-page">
-					<Header setIsAuthenticated={setIsAuthenticated} />
+				<Header setIsAuthenticated={setIsAuthenticated} onSignOut={onSignOut} />
 					<Routes>
 						{!isAuthenticated && (
 							<>
@@ -76,6 +81,7 @@ function App() {
 								<Route path={"search/ShowAll/:title/*"} element={<ShowAllSearch />}></Route>
 								<Route path={"search/:artistName/:id"} element={<ArtistDetail />}></Route>
 								<Route path="/editprofile" element={<EditProfile />}></Route>
+								<Route path="/profile" element={<Profile />}></Route>
 								{/*Community stuff*/}
 								<Route path="/community" element={<MessageBoard users={users} />}></Route>
 								{/* Redirect to Home if already signed in or signed out */}
@@ -87,7 +93,7 @@ function App() {
 							</>
 						)}
 						<Route path="/" element={<Navigate to="Home" />}></Route>
-						<Route path="/home" element={<Home />}></Route>
+						<Route path="/home" element={<Home signoutStatus={signoutStatus} />} />
 						<Route path="/profile/:id" element={<Profile />} />
 						<Route path="/noaccess" element={<NoAccess />}></Route>
 					</Routes>

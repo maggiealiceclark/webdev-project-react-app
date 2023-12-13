@@ -5,12 +5,28 @@ import Col from 'react-bootstrap/Col';
 import React, { useEffect, useState } from 'react';
 import { getArtistImage, getTrackImage, getToken } from '../APIService/service';
 import { getTopArtists, getTopTracks } from '../APIService/lastfmservice';
+import * as client from "../account/client";
 
-function Home() {
+function Home({ signoutStatus }) {
   const [artists, setArtists] = useState([]);
   const [tracks, setTracks] = useState([]);
   const [accessToken, setAccessToken] = useState("");
   const [loading, setLoading] = useState(true);
+  const [profileLoading, setProfileLoading] = useState(true);
+  const [profile, setProfile] = useState(null);
+
+const [isAuthenticated, setIsAuthenticated] = useState(() => {
+  const savedAuthState = localStorage.getItem("isAuthenticated");
+  console.log("savedAuthState: " + savedAuthState);
+  return savedAuthState !== null ? JSON.parse(savedAuthState) : false;
+});
+
+const fetchAccount = async () => {
+    const account = await client.account();
+    console.log("account: " + Object.keys(account));
+    setProfile(account);
+    setProfileLoading(false);
+};
 
 
   useEffect(() => {
@@ -38,13 +54,29 @@ function Home() {
       setArtists(updatedArtists);
       setTracks(updatedTracks);
       setLoading(false);
+      fetchAccount();
     };
 
     fetchData();
-  }, []);
+  }, [isAuthenticated, signoutStatus]);
 
   return (
     <Container>
+    <Container>
+      <Row className="mt-3">
+        <Col>
+          {profile ? (
+            <div className="alert alert-success">
+              {profileLoading ? 'Loading user...' : `Welcome, ${profile.username}!`}
+            </div>
+          ) : (
+            <div className="alert alert-info">
+              Please log in to see personalized content.
+            </div>
+          )}
+        </Col>
+      </Row>
+    </Container>
       <h1>Top Artists</h1>
       <div className="d-flex overflow-auto">
         {loading ? (
