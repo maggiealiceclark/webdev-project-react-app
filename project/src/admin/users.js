@@ -1,3 +1,5 @@
+// import "./index.css";
+
 import * as client from "../account/client";
 import React, { useState, useEffect } from "react";
 import { BsFillCheckCircleFill, BsPlusCircleFill, BsTrash3Fill, BsPencil } from "react-icons/bs";
@@ -5,35 +7,28 @@ import { Link } from "react-router-dom";
 
 function UserTable() {
 	const [users, setUsers] = useState([]);
-	const [user, setUser] = useState({ username: "", password: "", role: "USER" });
-	const createUser = async () => {
+	const [updatedUser, setUpdatedUser] = useState({ username: "", password: "", role: "USER" });
+
+	const deleteUser = async (updatedUser) => {
 		try {
-			const newUser = await client.createUser(user);
-			setUsers([newUser, ...users]);
+			await client.deleteUser(updatedUser);
+			setUsers(users.filter((u) => u._id !== updatedUser._id));
 		} catch (err) {
 			console.log(err);
 		}
 	};
-	const deleteUser = async (user) => {
+	const selectUser = async (updatedUser) => {
 		try {
-			await client.deleteUser(user);
-			setUsers(users.filter((u) => u._id !== user._id));
-		} catch (err) {
-			console.log(err);
-		}
-	};
-	const selectUser = async (user) => {
-		try {
-			const u = await client.findUserById(user._id);
-			setUser(u);
+			const u = await client.findUserById(updatedUser._id);
+			setUpdatedUser(u);
 		} catch (err) {
 			console.log(err);
 		}
 	};
 	const updateUser = async () => {
 		try {
-			const status = await client.updateUser(user);
-			setUsers(users.map((u) => (u._id === user._id ? user : u)));
+			const status = await client.updateUser(updatedUser);
+			setUsers(users.map((u) => (u._id === updatedUser._id ? updatedUser : u)));
 		} catch (err) {
 			console.log(err);
 		}
@@ -53,31 +48,46 @@ function UserTable() {
 				<thead>
 					<tr>
 						<th>Username</th>
+						<th>Password</th>
 						<th>First Name</th>
 						<th>Last Name</th>
 					</tr>
 					<tr>
 						<td>
-							<input value={user.password} onChange={(e) => setUser({ ...user, password: e.target.value })} />
-							<input value={user.username} onChange={(e) => setUser({ ...user, username: e.target.value })} />
+							<input
+								value={updatedUser.username}
+								onChange={(e) => setUpdatedUser({ ...updatedUser, username: e.target.value })}
+							/>
 						</td>
 						<td>
-							<input value={user.firstName} onChange={(e) => setUser({ ...user, firstName: e.target.value })} />
+							<input
+								value={updatedUser.password}
+								onChange={(e) => setUpdatedUser({ ...updatedUser, password: e.target.value })}
+							/>
 						</td>
 						<td>
-							<input value={user.lastName} onChange={(e) => setUser({ ...user, lastName: e.target.value })} />
+							<input
+								value={updatedUser.firstName}
+								onChange={(e) => setUpdatedUser({ ...updatedUser, firstName: e.target.value })}
+							/>
 						</td>
 						<td>
-							<select value={user.role} onChange={(e) => setUser({ ...user, role: e.target.value })}>
+							<input
+								value={updatedUser.lastName}
+								onChange={(e) => setUpdatedUser({ ...updatedUser, lastName: e.target.value })}
+							/>
+						</td>
+						<td>
+							<select
+								value={updatedUser.role}
+								onChange={(e) => setUpdatedUser({ ...updatedUser, role: e.target.value })}
+							>
 								<option value="USER">User</option>
 								<option value="ADMIN">Admin</option>
-								<option value="FACULTY">Faculty</option>
-								<option value="STUDENT">Student</option>
 							</select>
 						</td>
 						<td className="text-nowrap">
 							<BsFillCheckCircleFill onClick={updateUser} className="me-2 text-success fs-1 text" />
-							<BsPlusCircleFill onClick={createUser} className="text-success fs-1 text" />
 						</td>
 					</tr>
 				</thead>
