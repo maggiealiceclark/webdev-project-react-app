@@ -25,6 +25,7 @@ const Search = () => {
   }, []);
 
   const searchArtist = async () => {
+    if (searchQuery === "") return;
     const res = await getSearchResult(accessToken, searchQuery, ["track", "artist", "album"])
     setResult({
       Songs: res.tracks.items,

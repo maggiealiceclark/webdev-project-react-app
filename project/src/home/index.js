@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { getArtistImage, getTrackImage, getToken } from '../APIService/service';
 import { getTopArtists, getTopTracks } from '../APIService/lastfmservice';
 import * as client from "../account/client";
+import "./index.css";
 
 function Home({ signoutStatus }) {
   const [artists, setArtists] = useState([]);
@@ -66,8 +67,8 @@ const fetchAccount = async () => {
       <Row className="mt-3">
         <Col>
           {profile ? (
-            <div className="alert alert-success">
-              {profileLoading ? 'Loading user...' : `Welcome, ${profile.username}!`}
+            <div className="wd-welcome-container">
+              {profileLoading ? 'Loading user...' : <p className='wd-welcome-text'>Welcome {profile.username}!</p>}
             </div>
           ) : (
             <div className="alert alert-info">

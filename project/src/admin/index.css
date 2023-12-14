@@ -52,3 +52,8 @@
 .table thead input[type="submit"]:hover {
 	background-color: #45a049;
 }
+
+.wd-user-table {
+	width: 90%;
+	margin-left: 3pc;
+}

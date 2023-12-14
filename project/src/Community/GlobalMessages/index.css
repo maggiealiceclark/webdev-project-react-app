@@ -67,7 +67,7 @@
 .wd-new-message-container {
 	display: flex;
 	align-items: center;
-	justify-content: start;
+	justify-content: center;
 }
 
 .wd-community-global-text-message-text-box {
