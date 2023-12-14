@@ -7,20 +7,30 @@ import ArtistHeader from "./Header/ArtistHeader";
 
 const ArtistDetail = () => {
   const {artistId, artistName} = useParams()
+  console.log("Artist ID:", artistId);
   console.log(artistId, artistName)
   const [resultTopSong, setResultTopSong] = useState(null)
   const [resultArtist, setResultArtist] = useState(null)
 
   useEffect(() => {
     const getTopSongs = async () => {
-      const res = await getToken()
-      const topsong = await getTopTrack(res, artistId)
-      const artist = await getArtistDetail(res, artistId)
-      setResultTopSong(topsong)
-      setResultArtist(artist)
-    }
-    getTopSongs()
-  }, []);
+      try {
+        if (!artistId) {
+          throw new Error("Artist ID is undefined");
+        }
+  
+        const res = await getToken();
+        const topsong = await getTopTrack(res, artistId);
+        const artist = await getArtistDetail(res, artistId);
+        setResultTopSong(topsong);
+        setResultArtist(artist);
+      } catch (error) {
+        console.error("Error fetching artist details:", error);
+      }
+    };
+  
+    getTopSongs();
+  }, [artistId]);
 
 
   return (

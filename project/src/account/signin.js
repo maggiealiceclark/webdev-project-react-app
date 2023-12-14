@@ -14,12 +14,11 @@ function Signin(props) {
 			setIsAuthenticated(true);
 			localStorage.setItem("isAuthenticated", true);
 			localStorage.setItem("user", credentials.username);
-			window.location.reload();
 			navigate("/home");
-		} catch (err) {
+		  } catch (err) {
 			setError("Invalid credentials. Please check your username and password.");
-		}
-	};
+		  }
+		};
 
 	return (
 		<div>

@@ -1,0 +1,13 @@
+.favorite-artist-link {
+    color: #e9ebed; /* Set link color to Bootstrap's primary color */
+    text-decoration: none; /* Remove default underline */
+    font-weight: bold; /* Make the text bold */
+    transition: color 0.3s; /* Add a smooth color transition on hover */
+    padding: 0 5px;
+  
+    /* Add any additional styling you'd like */
+  }
+  
+  .favorite-artist-link:hover {
+    color: #0056b3; /* Change link color on hover */
+  }

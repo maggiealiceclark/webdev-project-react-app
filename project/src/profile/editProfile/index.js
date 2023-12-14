@@ -12,15 +12,16 @@ import { changeEmail } from "../../account/client";
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams, useParams } from "react-router-dom";
 import ArtistDetail from "../../Search/DetailScreen/ArtistDetail/ArtistDetail";
-import {artistId} from "../../Search/DetailScreen/ArtistDetail/ArtistDetail";
+import { artistId } from "../../Search/DetailScreen/ArtistDetail/ArtistDetail";
+import "./index.css";
+import { useUser } from "../../account/UserContext.js";
+import "./index.css";
 
-
-function EditProfile({artistId}) {
+function EditProfile({ artistId }) {
   const { id } = useParams();
   const [test] = useSearchParams();
-  // const { artistId } = useParams();
   const nid = test.get("id");
-  const { user } = useParams();
+  const { user, setUser, favoriteArtist, setFavoriteArtist } = useUser();
   const [profile, setProfile] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [email, setNewEmail] = useState("");
@@ -30,7 +31,7 @@ function EditProfile({artistId}) {
     password: "",
     email: "",
   });
-  const [favoriteArtist, setFavoriteArtist] = useState("");
+  // const [favoriteArtist, setFavoriteArtist] = useState("");
   const handleChangeEmail = async () => {
     try {
       console.log("the id", id, nid);
@@ -62,6 +63,20 @@ function EditProfile({artistId}) {
     const account = await client.account();
     setProfile(account);
     setIsLoading(false);
+  };
+  const handleSaveChanges = async () => {
+    try {
+      // Make an API call to save the favorite artist
+      await client.saveFavoriteArtist(user.id, favoriteArtist);
+
+      // Update the user context with the new favorite artist
+      setUser({ ...user, favoriteArtist });
+
+      // Optionally, you can show a success message to the user
+      alert("Favorite artist saved successfully!");
+    } catch (error) {
+      console.error("Error saving favorite artist:", error);
+    }
   };
 
   useEffect(() => {
@@ -111,18 +126,27 @@ function EditProfile({artistId}) {
               />
               <Nav.Link as={Link} to="/Home">
                 {profile.username} has been listening since{" "}
-                {profile.accountCreationDate}!
+                {profile.accountCreationDate && (
+                  <p>
+                    {new Date(profile.accountCreationDate).toLocaleDateString()}
+                    !
+                  </p>
+                )}
               </Nav.Link>
               <Nav.Item>
                 {profile.username}'s current favorite artist is{" "}
-                {/* Display the favorite artist name as a link */}
                 <Link
-                key={"1"} to={`/Search/${favoriteArtist}/${artistId}`} className={"mt-2"}
-              
+                  key={"1"}
+                  to={`/Search/${encodeURIComponent(
+                    favoriteArtist
+                  )}/${artistId}`}
+                  className={"mt-2 favorite-artist-link"}
                 >
                   {favoriteArtist}
                 </Link>
                 {/* Input for changing favorite artist */}
+                <br />
+                Change your favorite artist here:
                 <input
                   type="text"
                   value={favoriteArtist}

@@ -57,3 +57,39 @@ export const findUserByUsername = async (username) => {
 	const response = await request.get(`${USERS_API}/username/${username}`);
 	return response.data;
 };
+
+export const findUserByFavoriteArtist = async (favoriteArtist) => {
+	const response = await request.get('${USERS_API}/favoriteArtist/${favoriteArtist}');
+	return response.data;
+};
+// client.js
+
+// Import any necessary libraries or configurations for making API calls
+
+// Function to save the favorite artist for a user
+export const saveFavoriteArtist = async (user, favoriteArtist) => {
+	try {
+	  // Make an API call to update the user's favorite artist
+	  const response = await fetch(`/api/users/${user}/favorite-artist`, {
+		method: 'PUT',
+		headers: {
+		  'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({ favoriteArtist }),
+	  });
+  
+	  // Check if the API call was successful
+	  if (!response.ok) {
+		throw new Error('Failed to update favorite artist');
+	  }
+  
+	  // Return any relevant data from the response
+	  const data = await response.json();
+	  return data;
+	} catch (error) {
+	  // Handle errors
+	  console.error('Error saving favorite artist:', error);
+	  throw error; // Optionally, rethrow the error to allow the calling code to handle it
+	}
+  };
+  
