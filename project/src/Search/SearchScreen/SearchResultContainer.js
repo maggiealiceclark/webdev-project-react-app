@@ -6,7 +6,6 @@ import "./index.css"
 import CardMusic from "./CardMusic";
 
 const SearchResultContainer = ({name, id, imgLink, title}) => {
-  console.log(name,id)
   return (
     <Col lg={3} md={6} xs={12} key={id}>
       {title === "Artists" ? (

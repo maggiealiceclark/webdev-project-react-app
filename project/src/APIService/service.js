@@ -50,7 +50,7 @@ export const getTopTrack = async (accessToken, artist_Id, market = "US") => {
   return response.data.tracks;
 }
 
-export const getALbumDetail = async (accessToken, album_Id) => {
+export const getAlbumDetails = async (accessToken, album_Id) => {
   const response = await axios.get(
     `${SPOTIFY_URL}/albums/${album_Id}`,
     {
@@ -73,7 +73,6 @@ export const getArtistDetail = async (accessToken, artist_Id) => {
 
 
 export const getArtistImage = async (accessToken, artistName) => {
-  console.log('accessToken: ' + accessToken)
     const response = await axios.get(
       `${SPOTIFY_URL}/search`, 
       {

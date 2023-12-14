@@ -65,37 +65,38 @@ function App() {
 					<Routes>
 						{!isAuthenticated && (
 							<>
-								<Route path="/signin" element={<Signin setIsAuthenticated={setIsAuthenticated} />}></Route>
-								<Route path="/signup" element={<Signup setIsAuthenticated={setIsAuthenticated} />}></Route>
-								<Route path="/search/*" element={<Navigate to="/signin" />}></Route>
-								<Route path="/community/" element={<Navigate to="/signin" />}></Route>
-								<Route path="/profile" element={<Navigate to="/signin" />}></Route>
-								<Route path="/editprofile" element={<Navigate to="/signin" />}></Route>
-								<Route path="/admin" element={<Navigate to="/noaccess" />}></Route>
+							<Route path="/signin" element={<Navigate to="/signin" />} />
+							<Route path="/signup" element={<Navigate to="/signup" />} />
+							<Route path="/search/*" element={<Navigate to="/signin" />} />
+							<Route path="/community/" element={<Navigate to="/signin" />} />
+							<Route path="/profile" element={<Navigate to="/signin" />} />
+							<Route path="/editprofile" element={<Navigate to="/signin" />} />
+							<Route path="/admin" element={<Navigate to="/noaccess" />} />
 							</>
 						)}
 						{isAuthenticated && (
 							<>
-								<Route path="Search" element={<Search />}></Route>
-								<Route path={"search/Album/:albumName/:searchId/*"} element={<AlbumDetail />}></Route>
-								<Route path={"search/ShowAll/:title/*"} element={<ShowAllSearch />}></Route>
-								<Route path={"search/:artistName/:id"} element={<ArtistDetail />}></Route>
-								<Route path="/editprofile" element={<EditProfile />}></Route>
-								<Route path="/profile" element={<Profile />}></Route>
-								{/*Community stuff*/}
-								<Route path="/community" element={<MessageBoard users={users} />}></Route>
-								{/* Redirect to Home if already signed in or signed out */}
-								<Route path="signup" element={<Navigate to="/home" />}></Route>,
-								<Route path="signin" element={<Navigate to="/home" />}></Route>
-								{/* Admin Panel Stuff */}
-								{user && user.role === "USER" && <Route path="/admin" element={<Navigate to="/noaccess" />} />}
-								{user && user.role === "ADMIN" && <Route path="/admin" element={<UserTable />} />}
+							<Route path="Search" element={<Search />} />
+							<Route path="search/Album/:albumName/:albumId/*" element={<AlbumDetail />} />
+							<Route path="search/:artistName/:artistId" element={<ArtistDetail />} />
+							<Route path="search/ShowAll/:title/*" element={<ShowAllSearch />} />
+
+							<Route path="/editprofile" element={<EditProfile />} />
+							<Route path="/profile" element={<Profile />} />
+							{/* Community stuff */}
+							<Route path="/community" element={<MessageBoard users={users} />} />
+							{/* Redirect to Home if already signed in or signed out */}
+							<Route path="signup" element={<Navigate to="/home" />} />
+							<Route path="signin" element={<Navigate to="/home" />} />
+							{/* Admin Panel Stuff */}
+							{user && user.role === "USER" && <Route path="/admin" element={<Navigate to="/noaccess" />} />}
+							{user && user.role === "ADMIN" && <Route path="/admin" element={<UserTable />} />}
 							</>
 						)}
-						<Route path="/" element={<Navigate to="Home" />}></Route>
+						<Route path="/" element={<Navigate to="Home" />} />
 						<Route path="/home" element={<Home signoutStatus={signoutStatus} />} />
 						<Route path="/profile/:id" element={<Profile />} />
-						<Route path="/noaccess" element={<NoAccess />}></Route>
+						<Route path="/noaccess" element={<NoAccess />} />
 					</Routes>
 				</div>
 			</HashRouter>

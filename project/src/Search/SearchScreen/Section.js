@@ -27,4 +27,4 @@ const Section = ({title, result}) => {
   )
 }
 
-export default Section
+export default Section;

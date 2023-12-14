@@ -49,7 +49,6 @@ function Header({ setIsAuthenticated, onSignOut }) {
 	}, []);
 
 	useEffect(() => {
-		console.log(user);
 	}, [user]);
 
 	return (

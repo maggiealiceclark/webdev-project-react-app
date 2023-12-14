@@ -17,23 +17,28 @@ function Home({ signoutStatus }) {
 
 const [isAuthenticated, setIsAuthenticated] = useState(() => {
   const savedAuthState = localStorage.getItem("isAuthenticated");
-  console.log("savedAuthState: " + savedAuthState);
   return savedAuthState !== null ? JSON.parse(savedAuthState) : false;
 });
 
+
 const fetchAccount = async () => {
     const account = await client.account();
-    console.log("account: " + Object.keys(account));
     setProfile(account);
     setProfileLoading(false);
 };
 
+  useEffect(() => {
+    const fetchData = async() => {
+      const token = await getToken();
+      setAccessToken(token);
+    }
+
+    fetchData();
+    }, []);
+
 
   useEffect(() => {
     const fetchData = async () => {
-      const token = await getToken();
-      setAccessToken(token);
-
       const topArtists = await getTopArtists();
       const topTracks = await getTopTracks();
 

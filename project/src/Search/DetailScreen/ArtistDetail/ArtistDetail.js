@@ -6,20 +6,20 @@ import TableSong from "../AlbumDetail/Body/TableSong";
 import ArtistHeader from "./Header/ArtistHeader";
 
 const ArtistDetail = () => {
-  const {artistId, artistName} = useParams()
-  console.log(artistId, artistName)
-  const [resultTopSong, setResultTopSong] = useState(null)
-  const [resultArtist, setResultArtist] = useState(null)
+  const {artistName, artistId} = useParams();
+  console.log(artistId, artistName);
+  const [resultTopSong, setResultTopSong] = useState(null);
+  const [resultArtist, setResultArtist] = useState(null);
 
   useEffect(() => {
     const getTopSongs = async () => {
-      const res = await getToken()
-      const topsong = await getTopTrack(res, artistId)
-      const artist = await getArtistDetail(res, artistId)
-      setResultTopSong(topsong)
+      const res = await getToken();
+      const topsong = await getTopTrack(res, artistId);
+      const artist = await getArtistDetail(res, artistId);
+      setResultTopSong(topsong);
       setResultArtist(artist)
     }
-    getTopSongs()
+    getTopSongs();
   }, []);
 
 
@@ -40,4 +40,4 @@ const ArtistDetail = () => {
   )
 }
 
-export default ArtistDetail
+export default ArtistDetail;

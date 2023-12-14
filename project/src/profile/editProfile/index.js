@@ -6,21 +6,22 @@ import { Provider } from "react-redux";
 import Logo from "../../images/logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Carousel from "react-bootstrap/Carousel";
-import ExampleCarouselImage from "../../images/Picture1.png";
 import * as client from "../../account/client";
 import { changeEmail } from "../../account/client";
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams, useParams } from "react-router-dom";
-import ArtistDetail from "../../Search/DetailScreen/ArtistDetail/ArtistDetail";
-import {artistId} from "../../Search/DetailScreen/ArtistDetail/ArtistDetail";
-
-
-function EditProfile({artistId}) {
+import "./index.css";
+import { useUser } from "../../account/UserContext.js";
+import "./index.css";
+import { getSearchResult, getToken } from "../../APIService/service.js";
+ 
+function EditProfile({ artistId }) {
+  const [accessToken, setAccessToken] = useState("");
+  const navigate = useNavigate();
   const { id } = useParams();
   const [test] = useSearchParams();
-  // const { artistId } = useParams();
   const nid = test.get("id");
-  const { user } = useParams();
+  const { user, setUser, favoriteArtist, setFavoriteArtist } = useUser();
   const [profile, setProfile] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [email, setNewEmail] = useState("");
@@ -30,13 +31,19 @@ function EditProfile({artistId}) {
     password: "",
     email: "",
   });
-  const [favoriteArtist, setFavoriteArtist] = useState("");
+  // Example of declaring 'artistName'
+const artistName = "SomeName";
+ 
+// Example of importing 'navigate'
+ 
+ 
+  // const [favoriteArtist, setFavoriteArtist] = useState("");
   const handleChangeEmail = async () => {
     try {
       console.log("the id", id, nid);
       const result = await changeEmail(email, nid);
       setProfile({ ...profile, email: email });
-
+ 
       if (result) {
         alert("Email changed successfully");
       } else {
@@ -47,23 +54,61 @@ function EditProfile({artistId}) {
       console.error("Error changing email:", error);
     }
   };
-
+ 
   const handleChangeArtist = (e) => {
     setFavoriteArtist(e.target.value);
   };
-
+ 
   const findUserById = async (id) => {
     const user = await client.findUserById(id);
     setProfile(user);
     setIsLoading(false);
   };
-
+ 
   const fetchAccount = async () => {
     const account = await client.account();
     setProfile(account);
     setIsLoading(false);
   };
-
+  const handleSaveChanges = async () => {
+    try {
+      if (!favoriteArtist) {
+        console.error("Favorite artist is undefined.");
+        return;
+      }
+ 
+      // Make an API call to search for the artist using the artistName
+      const token = await getToken();
+      const searchResult = await getSearchResult(accessToken, artistName, ["artist"]);
+      const selectedArtist = searchResult.artists.items[0];
+ 
+      if (!selectedArtist) {
+        console.error("Artist not found.");
+        return;
+      }
+ 
+      // Update the user context with the new favorite artist
+      setUser({ ...user, favoriteArtist: selectedArtist.name });
+ 
+      // Check if the typed favorite artist matches the selected artist name
+      if (favoriteArtist === selectedArtist.name) {
+        // Optionally, you can show a success message to the user
+        alert("Favorite artist saved successfully!");
+ 
+        // Extract artist ID from the search result
+        const selectedArtistId = selectedArtist.id;
+ 
+        // Navigate to the artist details page
+        navigate(`/search/${encodeURIComponent(artistName)}/${encodeURIComponent(selectedArtistId)}`);
+      } else {
+        console.error("Typed favorite artist does not match the selected artist.");
+      }
+    } catch (error) {
+      console.error("Error saving favorite artist:", error);
+    }
+  };
+ 
+ 
   useEffect(() => {
     if (id) {
       findUserById(id);
@@ -71,7 +116,7 @@ function EditProfile({artistId}) {
       fetchAccount();
     }
   }, []);
-
+ 
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -111,30 +156,43 @@ function EditProfile({artistId}) {
               />
               <Nav.Link as={Link} to="/Home">
                 {profile.username} has been listening since{" "}
-                {profile.accountCreationDate}!
+                {profile.accountCreationDate && (
+                  <p>
+                    {new Date(profile.accountCreationDate).toLocaleDateString()}
+                    !
+                  </p>
+                )}
               </Nav.Link>
+           
               <Nav.Item>
-                {profile.username}'s current favorite artist is{" "}
-                {/* Display the favorite artist name as a link */}
+                <div>
+                  <label>New Favorite Artist:</label>
+                  <input
+                    type="text"
+                    value={favoriteArtist}
+                    onChange={handleChangeArtist}
+                    placeholder="Type your favorite artist here"
+                  />
+                  <button onClick={handleSaveChanges}>
+                    Save Favorite Artist
+                  </button>
+                </div>
+                {/* Link to the artist detail page */}
                 <Link
-                key={"1"} to={`/Search/${favoriteArtist}/${artistId}`} className={"mt-2"}
-              
+                  key={"1"}
+                  to={`/Search/${encodeURIComponent(
+                    favoriteArtist
+                  )}/${encodeURIComponent(artistId)}`}
+                  className={"mt-2 favorite-artist-link"}
                 >
                   {favoriteArtist}
                 </Link>
-                {/* Input for changing favorite artist */}
-                <input
-                  type="text"
-                  value={favoriteArtist}
-                  onChange={handleChangeArtist}
-                  placeholder="Type your favorite artist here"
-                />
               </Nav.Item>
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
-
+ 
       <div
         className="container"
         style={{
@@ -145,7 +203,7 @@ function EditProfile({artistId}) {
       >
         <div className="row" style={{ backgroundColor: "#65cfd4" }}>
           {/* FIRST COLUMN*/}
-
+ 
           <div className="col-md-4" style={{ backgroundColor: "#65cfd4" }}>
             <div>
               <h2
@@ -158,7 +216,7 @@ function EditProfile({artistId}) {
               >
                 My Most Recent Tracks
               </h2>
-
+ 
               <Carousel>
                 <Carousel.Item>
                   <img
@@ -228,7 +286,7 @@ function EditProfile({artistId}) {
             </div>
           </div>
           {/* THIRD COLUMN */}
-
+ 
           <div
             className="col-md-4"
             style={{
@@ -258,5 +316,6 @@ function EditProfile({artistId}) {
     </div>
   );
 }
-
+ 
 export default EditProfile;
+ 

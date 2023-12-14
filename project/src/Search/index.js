@@ -8,7 +8,7 @@ import {getToken, getSearchResult} from "../APIService/service"
 
 const Search = () => {
   const title = ["Songs", "Artists", "Albums"]
-  const [accessToken, setAccessToken] = useState("")
+  const [accessToken, setAccessToken] = useState("");
   const [result, setResult] = useState({
     Songs: null,
     Artists: null,
