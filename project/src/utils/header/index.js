@@ -8,6 +8,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Logo from "../../images/logo.png";
 import axios from "axios";
 import { useEffect } from "react";
+import "./index.css";
 
 const API_BASE = "http://localhost:4000/api";
 const USERS_URL = `${API_BASE}/users`;
@@ -26,7 +27,7 @@ function Header({ setIsAuthenticated, onSignOut }) {
 			localStorage.removeItem("user");
 			localStorage.removeItem("username");
 			setIsAuthenticated(false);
-			onSignOut()
+			onSignOut();
 			navigate("/home"); // Redirect to the home page after signing out
 		} catch (err) {
 			setError(err.response.data.message);
@@ -70,24 +71,33 @@ function Header({ setIsAuthenticated, onSignOut }) {
 						{username ? (
 							user && user.role === "ADMIN" ? (
 								<>
-									<div>
-										<Button href={"#/admin"}>Admin</Button>
-										<Button href={"#/home"} onClick={signout}>
+									<div className="wd-header-buttons">
+										<button className="wd-button" onClick={() => navigate("/admin")}>
+											{" "}
+											Admin
+										</button>
+										<button className="wd-button" onClick={signout}>
 											Sign out
-										</Button>
+										</button>
 									</div>
 								</>
 							) : (
 								<>
-									<Button href={"#/home"} onClick={signout}>
+									<button className="wd-button" onClick={signout}>
 										Sign out
-									</Button>
+									</button>
 								</>
 							)
 						) : (
 							<>
-								<Button href={"#/signup"}>Sign up</Button>
-								<Button href={"#/signin"}>Sign in</Button>
+								<div className="wd-header-buttons">
+									<button className="wd-button" onClick={() => navigate("/signup")}>
+										Sign up
+									</button>
+									<button className="wd-button" onClick={() => navigate("/signin")}>
+										Sign in
+									</button>
+								</div>
 							</>
 						)}
 					</div>

@@ -1,8 +1,7 @@
 .wd-community-main {
     display: flex;
     margin: 2pc;
-    justify-content: space-between;
+    justify-content: center;
     align-items: top;
-
 }
 
