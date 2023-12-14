@@ -75,9 +75,10 @@ function Profile() {
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav>
+        {!id && (
         <Nav.Link as={Link} to={`/EditProfile?id=${profile._id}`} style={{marginTop: "20px"}}>
           Edit My Profile
-        </Nav.Link>
+        </Nav.Link> )}
         <FontAwesomeIcon
           icon="fas fa-cogs"
           display="inline-block"

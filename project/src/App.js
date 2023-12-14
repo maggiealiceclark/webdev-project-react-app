@@ -22,7 +22,7 @@ import NoAccess from "./admin/noaccess";
 const API_BASE = "http://localhost:4000/api";
 const USERS_URL = `${API_BASE}/users`;
 
-function App() {
+function App({artistId}) {
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState(null);
   const [signoutStatus, setSignoutStatus] = useState(false);
@@ -60,89 +60,88 @@ function App() {
 
   return (
     <UserProvider>
-      
-        <div className="wd-main-page">
-          <Header
-            setIsAuthenticated={setIsAuthenticated}
-            onSignOut={onSignOut}
+      <div className="wd-main-page">
+        <Header setIsAuthenticated={setIsAuthenticated} onSignOut={onSignOut} />
+        <Routes>
+          {!isAuthenticated && (
+            <>
+              <Route
+                path="/signin"
+                element={<Signin setIsAuthenticated={setIsAuthenticated} />}
+              ></Route>
+              <Route
+                path="/signup"
+                element={<Signup setIsAuthenticated={setIsAuthenticated} />}
+              ></Route>
+              <Route
+                path="/search/*"
+                element={<Navigate to="/signin" />}
+              ></Route>
+              <Route
+                path="/community/"
+                element={<Navigate to="/signin" />}
+              ></Route>
+              <Route
+                path="/profile"
+                element={<Navigate to="/signin" />}
+              ></Route>
+              <Route
+                path="/editprofile"
+                element={<Navigate to="/signin" />}
+              ></Route>
+              <Route
+                path="/admin"
+                element={<Navigate to="/noaccess" />}
+              ></Route>
+            </>
+          )}
+          {isAuthenticated && (
+            <>
+              <Route path="Search" element={<Search />}></Route>
+			  <Route path="/artist/:artistId/:artistName" element={<ArtistDetail />} />
+              <Route
+                path={"search/ShowAll/:title/*"}
+                element={<ShowAllSearch />}
+              ></Route>
+              {/* <Route
+                path={"search/:artistName/:id"}
+                element={<ArtistDetail />}
+              ></Route> */}
+              <Route path="/editprofile" element={<EditProfile artistId={artistId} />} />
+              <Route path="/profile" element={<Profile />}></Route>
+              {/*Community stuff*/}
+              <Route
+                path="/community"
+                element={<MessageBoard users={users} />}
+              ></Route>
+              {/* Redirect to Home if already signed in or signed out */}
+              <Route
+                path="signup"
+                element={<Signup setIsAuthenticated={setIsAuthenticated} />}
+              ></Route>
+              ,
+              <Route
+                path="/signin"
+                element={<Signin setIsAuthenticated={setIsAuthenticated} />}
+              />
+              {/* Admin Panel Stuff */}
+              {user && user.role === "USER" && (
+                <Route path="/admin" element={<Navigate to="/noaccess" />} />
+              )}
+              {user && user.role === "ADMIN" && (
+                <Route path="/admin" element={<UserTable />} />
+              )}
+            </>
+          )}
+          <Route path="/" element={<Navigate to="Home" />}></Route>
+          <Route
+            path="/home"
+            element={<Home signoutStatus={signoutStatus} />}
           />
-          <Routes>
-            {!isAuthenticated && (
-              <>
-                <Route
-                  path="/signin"
-                  element={<Signin setIsAuthenticated={setIsAuthenticated} />}
-                ></Route>
-                <Route
-                  path="/signup"
-                  element={<Signup setIsAuthenticated={setIsAuthenticated} />}
-                ></Route>
-                <Route
-                  path="/search/*"
-                  element={<Navigate to="/signin" />}
-                ></Route>
-                <Route
-                  path="/community/"
-                  element={<Navigate to="/signin" />}
-                ></Route>
-                <Route
-                  path="/profile"
-                  element={<Navigate to="/signin" />}
-                ></Route>
-                <Route
-                  path="/editprofile"
-                  element={<Navigate to="/signin" />}
-                ></Route>
-                <Route
-                  path="/admin"
-                  element={<Navigate to="/noaccess" />}
-                ></Route>
-              </>
-            )}
-            {isAuthenticated && (
-              <>
-                <Route path="Search" element={<Search />}></Route>
-                <Route
-                  path={"search/Album/:albumName/:searchId/*"}
-                  element={<AlbumDetail />}
-                ></Route>
-                <Route
-                  path={"search/ShowAll/:title/*"}
-                  element={<ShowAllSearch />}
-                ></Route>
-                <Route
-                  path={"search/:artistName/:id"}
-                  element={<ArtistDetail />}
-                ></Route>
-                <Route path="/editprofile" element={<EditProfile />}></Route>
-                <Route path="/profile" element={<Profile />}></Route>
-                {/*Community stuff*/}
-                <Route
-                  path="/community"
-                  element={<MessageBoard users={users} />}
-                ></Route>
-                {/* Redirect to Home if already signed in or signed out */}
-                <Route path="signup" element={<Signup setIsAuthenticated={setIsAuthenticated} />}></Route>,
-				<Route path="/signin" element={<Signin setIsAuthenticated={setIsAuthenticated} />} />
-                {/* Admin Panel Stuff */}
-                {user && user.role === "USER" && (
-                  <Route path="/admin" element={<Navigate to="/noaccess" />} />
-                )}
-                {user && user.role === "ADMIN" && (
-                  <Route path="/admin" element={<UserTable />} />
-                )}
-              </>
-            )}
-            <Route path="/" element={<Navigate to="Home" />}></Route>
-            <Route
-              path="/home"
-              element={<Home signoutStatus={signoutStatus} />}
-            />
-            <Route path="/profile/:id" element={<Profile />} />
-            <Route path="/noaccess" element={<NoAccess />}></Route>
-          </Routes>
-        </div>
-    
+          <Route path="/profile/:id" element={<Profile />} />
+          <Route path="/noaccess" element={<NoAccess />}></Route>
+        </Routes>
+      </div>
     </UserProvider>
   );
 }

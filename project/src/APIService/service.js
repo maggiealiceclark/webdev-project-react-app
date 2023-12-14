@@ -73,7 +73,7 @@ export const getArtistDetail = async (accessToken, artist_Id) => {
 
 
 export const getArtistImage = async (accessToken, artistName) => {
-  console.log('accessToken: ' + accessToken)
+
     const response = await axios.get(
       `${SPOTIFY_URL}/search`, 
       {

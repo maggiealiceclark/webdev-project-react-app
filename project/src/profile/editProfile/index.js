@@ -16,8 +16,11 @@ import { artistId } from "../../Search/DetailScreen/ArtistDetail/ArtistDetail";
 import "./index.css";
 import { useUser } from "../../account/UserContext.js";
 import "./index.css";
+import { getSearchResult, getToken } from "../../APIService/service.js";
 
 function EditProfile({ artistId }) {
+  const [accessToken, setAccessToken] = useState("");
+  const navigate = useNavigate();
   const { id } = useParams();
   const [test] = useSearchParams();
   const nid = test.get("id");
@@ -31,6 +34,12 @@ function EditProfile({ artistId }) {
     password: "",
     email: "",
   });
+  // Example of declaring 'artistName'
+const artistName = "SomeName";
+
+// Example of importing 'navigate'
+
+
   // const [favoriteArtist, setFavoriteArtist] = useState("");
   const handleChangeEmail = async () => {
     try {
@@ -64,20 +73,57 @@ function EditProfile({ artistId }) {
     setProfile(account);
     setIsLoading(false);
   };
+  // const handleSaveChanges = async () => {
+  //   try {
+  //     // Make an API call to save the favorite artist
+  //     await client.saveFavoriteArtist(user.id, favoriteArtist);
+
+  //     // Update the user context with the new favorite artist
+  //     setUser({ ...user, favoriteArtist });
+
+  //     // Optionally, you can show a success message to the user
+  //     alert("Favorite artist saved successfully!");
+  //   } catch (error) {
+  //     console.error("Error saving favorite artist:", error);
+  //   }
+  // };
   const handleSaveChanges = async () => {
     try {
-      // Make an API call to save the favorite artist
-      await client.saveFavoriteArtist(user.id, favoriteArtist);
-
+      if (!favoriteArtist) {
+        console.error("Favorite artist is undefined.");
+        return;
+      }
+  
+      // Make an API call to search for the artist using the artistName
+      const searchResult = await getSearchResult(accessToken, artistName, ["artist"]);
+      const selectedArtist = searchResult.artists.items[0];
+  
+      if (!selectedArtist) {
+        console.error("Artist not found.");
+        return;
+      }
+  
       // Update the user context with the new favorite artist
-      setUser({ ...user, favoriteArtist });
-
-      // Optionally, you can show a success message to the user
-      alert("Favorite artist saved successfully!");
+      setUser({ ...user, favoriteArtist: selectedArtist.name });
+  
+      // Check if the typed favorite artist matches the selected artist name
+      if (favoriteArtist === selectedArtist.name) {
+        // Optionally, you can show a success message to the user
+        alert("Favorite artist saved successfully!");
+  
+        // Extract artist ID from the search result
+        const selectedArtistId = selectedArtist.id;
+  
+        // Navigate to the artist details page
+        navigate(`/search/${encodeURIComponent(artistName)}/${encodeURIComponent(selectedArtistId)}`);
+      } else {
+        console.error("Typed favorite artist does not match the selected artist.");
+      }
     } catch (error) {
       console.error("Error saving favorite artist:", error);
     }
   };
+  
 
   useEffect(() => {
     if (id) {
@@ -133,26 +179,30 @@ function EditProfile({ artistId }) {
                   </p>
                 )}
               </Nav.Link>
+            
               <Nav.Item>
-                {profile.username}'s current favorite artist is{" "}
+                <div>
+                  <label>New Favorite Artist:</label>
+                  <input
+                    type="text"
+                    value={favoriteArtist}
+                    onChange={handleChangeArtist}
+                    placeholder="Type your favorite artist here"
+                  />
+                  <button onClick={handleSaveChanges}>
+                    Save Favorite Artist
+                  </button>
+                </div>
+                {/* Link to the artist detail page */}
                 <Link
                   key={"1"}
                   to={`/Search/${encodeURIComponent(
                     favoriteArtist
-                  )}/${artistId}`}
+                  )}/${encodeURIComponent(artistId)}`}
                   className={"mt-2 favorite-artist-link"}
                 >
                   {favoriteArtist}
                 </Link>
-                {/* Input for changing favorite artist */}
-                <br />
-                Change your favorite artist here:
-                <input
-                  type="text"
-                  value={favoriteArtist}
-                  onChange={handleChangeArtist}
-                  placeholder="Type your favorite artist here"
-                />
               </Nav.Item>
             </Nav>
           </Navbar.Collapse>
