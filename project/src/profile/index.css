@@ -1,0 +1,33 @@
+/* Navbar styles */
+.navbar {
+  background-color: #2281a7;
+  font-family: system-ui;
+}
+
+.profile-photo img {
+  height: 200px;
+  padding: 10px;
+  margin: 10px;
+}
+
+.font-weight-bold {
+  padding: 5px;
+}
+
+/* Profile component styles */
+.profile-container {
+  margin-top: 20px; /* Adjust the value to your preference */
+  background-color: lightblue;
+  margin: 50px;
+  margin-left: 100px;
+}
+
+.display-5 {
+  padding-top: 20px;
+  font-family: system-ui;
+  color: white;
+}
+
+.carousel-container {
+  background-color: #65cfd4;
+}

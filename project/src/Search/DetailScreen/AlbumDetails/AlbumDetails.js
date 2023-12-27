@@ -9,8 +9,8 @@ import * as userService from "../../../account/client";
 import { FaHeart } from "react-icons/fa";
 
 
-const AlbumDetail = () => {
-  const {albumName, searchId: albumId} = useParams();
+const AlbumDetails = () => {
+  const {albumId} = useParams();
   const [albumDetails, setAlbumDetails] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
   const [profileLoading, setProfileLoading] = useState(true);
@@ -23,12 +23,10 @@ const AlbumDetail = () => {
   };
 
   const like = async () => {
-    console.log('like initiated!');
     if (currentUser) {
       await likesClient.createUserLikesAlbum(currentUser._id, albumId);
     }
     else{
-      console.log("no current user");
     }
   };
 
@@ -53,7 +51,7 @@ const AlbumDetail = () => {
     <Container>
       {albumDetails && (
         <>
-          <AlbumHeader albumName={albumName}
+          <AlbumHeader albumName={albumDetails.name}
                        albumImg={albumDetails.images[0].url}>
           </AlbumHeader>
           <button className={"wd-like-button"} onClick={like}>
@@ -68,4 +66,4 @@ const AlbumDetail = () => {
   )
 }
 
-export default AlbumDetail;
+export default AlbumDetails;

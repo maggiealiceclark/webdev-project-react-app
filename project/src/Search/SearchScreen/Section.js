@@ -2,14 +2,13 @@ import {Row} from "react-bootstrap";
 import SearchResultContainer from "./SearchResultContainer";
 import React from "react";
 import {Link} from "react-router-dom";
-import error_image from "../../images/cant-find-image.png"
+import error_image from "../../images/cant-find-image.png";
 
 const Section = ({title, result}) => {
   return (
     <div>
       <div className={"d-flex justify-content-between m-2"}>
         <h2 className={"font"}>{title}</h2>
-        <Link key={"1"} to={`/Search/ShowAll/${title}`} className={"mt-2"}>Show All</Link>
       </div>
       <Row className="justify-content-center">
         {result.map((music) => (

@@ -1,5 +1,25 @@
 .wd-home-style {
-  width: 70%;
-  margin: 50px;
-  
+	width: 70%;
+	margin: 50px;
+}
+
+.wd-welcome-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 10vh;
+	background-color: #dff1fa;
+  border: 0.5px solid #ccc;
+  border-radius: 3px;
+  margin-top: 2pc;
+  margin-bottom: 2pc;
+}
+
+.wd-welcome-text {
+	font-size: 48px;
+	font-weight: 500;
+	margin: 20px 0;
+	color: #333;
+	text-align: center;
 }

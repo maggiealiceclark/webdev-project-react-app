@@ -41,6 +41,10 @@ const Search = () => {
             placeholder="What do you want to listen to?"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                searchArtist();
+              }}}
           />
           <Button variant="outline-secondary" id="button-addon2" onClick={searchArtist}>
             Search
@@ -53,4 +57,4 @@ const Search = () => {
     </Container>
   );
 }
-export default Search
+export default Search;

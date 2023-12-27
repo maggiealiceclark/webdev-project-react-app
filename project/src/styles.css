@@ -6,3 +6,19 @@
 	font-weight: normal;
 	overflow-x: hidden;
 }
+
+.wd-button {
+	background-color: #2eabc3;
+	color: white;
+	padding: 10px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	margin-right: 1pc;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.wd-button:hover {
+	background-color: #369fb5;
+}

@@ -2,12 +2,12 @@ import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {getArtistDetail, getToken, getTopTrack} from "../../../APIService/service";
 import "./index.css"
-import TableSong from "../AlbumDetail/Body/TableSong";
+import TableSong from "../AlbumDetails/Body/TableSong";
 import ArtistHeader from "./Header/ArtistHeader";
 
-const ArtistDetail = () => {
+const ArtistDetails = () => {
   const {artistName, artistId} = useParams();
-  console.log(artistId, artistName);
+  console.log(artistName, artistId);
   const [resultTopSong, setResultTopSong] = useState(null);
   const [resultArtist, setResultArtist] = useState(null);
 
@@ -40,4 +40,4 @@ const ArtistDetail = () => {
   )
 }
 
-export default ArtistDetail;
+export default ArtistDetails;

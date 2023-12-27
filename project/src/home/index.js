@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { getArtistImage, getTrackImage, getToken } from '../APIService/service';
 import { getTopArtists, getTopTracks } from '../APIService/lastfmservice';
 import * as client from "../account/client";
+import "./index.css";
 
 function Home({ signoutStatus }) {
   const [artists, setArtists] = useState([]);
@@ -14,6 +15,7 @@ function Home({ signoutStatus }) {
   const [loading, setLoading] = useState(true);
   const [profileLoading, setProfileLoading] = useState(true);
   const [profile, setProfile] = useState(null);
+  const [tokenLoading, setTokenLoading] = useState(true);
 
 const [isAuthenticated, setIsAuthenticated] = useState(() => {
   const savedAuthState = localStorage.getItem("isAuthenticated");
@@ -27,18 +29,16 @@ const fetchAccount = async () => {
     setProfileLoading(false);
 };
 
-  useEffect(() => {
-    const fetchData = async() => {
-      const token = await getToken();
-      setAccessToken(token);
-    }
-
-    fetchData();
-    }, []);
 
 
   useEffect(() => {
     const fetchData = async () => {
+      const token = await getToken();
+      setAccessToken(token);
+      console.log(token);
+      setTokenLoading(false);
+
+      if (token) {
       const topArtists = await getTopArtists();
       const topTracks = await getTopTracks();
 
@@ -60,10 +60,17 @@ const fetchAccount = async () => {
       setTracks(updatedTracks);
       setLoading(false);
       fetchAccount();
+      }
     };
 
     fetchData();
   }, [isAuthenticated, signoutStatus]);
+
+  useEffect(() => {
+    if (!tokenLoading) {
+
+    }
+  }, [tokenLoading]);
 
   return (
     <Container>
@@ -71,8 +78,8 @@ const fetchAccount = async () => {
       <Row className="mt-3">
         <Col>
           {profile ? (
-            <div className="alert alert-success">
-              {profileLoading ? 'Loading user...' : `Welcome, ${profile.username}!`}
+            <div className="wd-welcome-container">
+              {profileLoading ? 'Loading user...' : <p className='wd-welcome-text'>Welcome {profile.username}!</p>}
             </div>
           ) : (
             <div className="alert alert-info">

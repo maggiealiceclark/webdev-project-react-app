@@ -2,7 +2,7 @@ import "./App.css";
 import "./styles.css";
 import { HashRouter } from "react-router-dom";
 import { Route, Routes, Navigate } from "react-router";
-import Profile from "./account";
+import Profile from "./profile";
 import Header from "./utils/header";
 import Home from "./home";
 import MessageBoard from "./Community";
@@ -12,10 +12,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Search from "./Search";
 import ShowAllSearch from "./Search/SearchScreen/ShowAllSearch";
-import AlbumDetail from "./Search/DetailScreen/AlbumDetail/AlbumDetail";
+import AlbumDetails from "./Search/DetailScreen/AlbumDetails/AlbumDetails";
+import ArtistDetails from "./Search/DetailScreen/ArtistDetails/ArtistDetails";
 import EditProfile from "./profile/editProfile";
-import ArtistDetail from "./Search/DetailScreen/ArtistDetail/ArtistDetail";
-import { UserProvider } from "./account/UserContext";
 import UserTable from "./admin/users";
 import NoAccess from "./admin/noaccess";
 
@@ -58,49 +57,49 @@ function App() {
 	}, []);
 
 	return (
-		<UserProvider>
 			<HashRouter>
 				<div className="wd-main-page">
 				<Header setIsAuthenticated={setIsAuthenticated} onSignOut={onSignOut} />
 					<Routes>
 						{!isAuthenticated && (
 							<>
-							<Route path="/signin" element={<Navigate to="/signin" />} />
-							<Route path="/signup" element={<Navigate to="/signup" />} />
-							<Route path="/search/*" element={<Navigate to="/signin" />} />
-							<Route path="/community/" element={<Navigate to="/signin" />} />
-							<Route path="/profile" element={<Navigate to="/signin" />} />
-							<Route path="/editprofile" element={<Navigate to="/signin" />} />
-							<Route path="/admin" element={<Navigate to="/noaccess" />} />
+								<Route path="/signin" element={<Signin setIsAuthenticated={setIsAuthenticated} />}></Route>
+								<Route path="/signup" element={<Signup setIsAuthenticated={setIsAuthenticated} />}></Route>
+								<Route path="/search/*" element={<Navigate to="/signin" />}></Route>
+								<Route path="/community/" element={<Navigate to="/signin" />}></Route>
+								<Route path="/profile" element={<Navigate to="/signin" />}></Route>
+								<Route path="/editprofile" element={<Navigate to="/signin" />}></Route>
+								<Route path="/admin" element={<Navigate to="/noaccess" />}></Route>
 							</>
 						)}
 						{isAuthenticated && (
 							<>
-							<Route path="Search" element={<Search />} />
-							<Route path="search/Album/:albumName/:albumId/*" element={<AlbumDetail />} />
-							<Route path="search/:artistName/:artistId" element={<ArtistDetail />} />
-							<Route path="search/ShowAll/:title/*" element={<ShowAllSearch />} />
+								<Route path="search" element={<Search />}></Route>
 
-							<Route path="/editprofile" element={<EditProfile />} />
-							<Route path="/profile" element={<Profile />} />
-							{/* Community stuff */}
-							<Route path="/community" element={<MessageBoard users={users} />} />
-							{/* Redirect to Home if already signed in or signed out */}
-							<Route path="signup" element={<Navigate to="/home" />} />
-							<Route path="signin" element={<Navigate to="/home" />} />
-							{/* Admin Panel Stuff */}
-							{user && user.role === "USER" && <Route path="/admin" element={<Navigate to="/noaccess" />} />}
-							{user && user.role === "ADMIN" && <Route path="/admin" element={<UserTable />} />}
+
+								<Route path="search/album/:albumId" element={<AlbumDetails />}></Route>
+								<Route path="search/artist/:artistId" element={<ArtistDetails />}></Route>
+
+								<Route path="/editprofile" element={<EditProfile />}></Route>
+								<Route path="/profile" element={<Profile />}></Route>
+								<Route path="/profile/:id" element={<Profile />}></Route>
+								{/*Community stuff*/}
+								<Route path="/community" element={<MessageBoard users={users} />}></Route>
+								{/* Redirect to Home if already signed in or signed out */}
+								<Route path="signup" element={<Navigate to="/home" />}></Route>
+								<Route path="signin" element={<Navigate to="/home" />}></Route>
+								{/* Admin Panel Stuff */}
+								{user && user.role === "USER" && <Route path="/admin" element={<Navigate to="/noaccess" />} />}
+								{user && user.role === "ADMIN" && <Route path="/admin" element={<UserTable />} />}
 							</>
 						)}
-						<Route path="/" element={<Navigate to="Home" />} />
+						<Route path="/" element={<Navigate to="Home" />}></Route>
 						<Route path="/home" element={<Home signoutStatus={signoutStatus} />} />
 						<Route path="/profile/:id" element={<Profile />} />
-						<Route path="/noaccess" element={<NoAccess />} />
+						<Route path="/noaccess" element={<NoAccess />}></Route>
 					</Routes>
 				</div>
 			</HashRouter>
-		</UserProvider>
 	);
 }
 

@@ -22,6 +22,7 @@ function Account() {
 		await client.signout();
 		navigate("/signin");
 	};
+
 	useEffect(() => {
 		if (id) {
 			findUserById(id);
@@ -29,6 +30,8 @@ function Account() {
 			fetchAccount();
 		}
 	}, []);
+
+	
 	return (
 		<div className="w-50">
 			<h1>Account</h1>

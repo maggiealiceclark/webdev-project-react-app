@@ -1,0 +1,51 @@
+.wd-signin-container {
+	max-width: 300px;
+    margin-top: 50px !important;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.wd-input-field {
+	width: 100%;
+	margin-bottom: 10px;
+	padding: 8px;
+	box-sizing: border-box;
+}
+
+.wd-error-message {
+	color: red;
+	margin-bottom: 10px;
+}
+
+
+.wd-signin-button:hover {
+	background-color: #45a049;
+}
+
+.wd-checkbox-container {
+    margin-bottom: 10px;
+}
+
+.wd-checkbox-label {
+    margin-left: 5px;
+}
+
+.wd-not-a-member {
+    max-width: 300px;
+    margin-top: 30px !important;
+	margin: auto;
+	padding: 20px;
+	border-radius: 5px;
+}
+
+.wd-already-a-member {
+    max-width: 300px;
+    margin-top: 30px !important;
+    margin: auto;
+    padding: 20px;
+    border-radius: 5px;
+}
+

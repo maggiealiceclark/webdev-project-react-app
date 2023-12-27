@@ -17,4 +17,4 @@ const SongRow = ({imgSong, artistName, songName}) => {
   )
 }
 
-export default SongRow
+export default SongRow;
